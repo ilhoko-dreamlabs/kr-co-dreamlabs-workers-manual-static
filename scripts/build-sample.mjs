@@ -1,0 +1,67 @@
+import { mkdir, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import { fullGuides } from './full-guides.mjs';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const out = path.join(root, 'guide');
+const esc = text => String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+const prompt = `아래 가상 회의 메모를 정리해 주세요.
+제공한 내용만 사용하고 도구 호출, 파일 저장, Wiki 수정, 외부 전송은 하지 마세요.
+
+[가상 회의 메모]
+- 새 고객 안내 페이지를 10월 8일에 공개하기로 했습니다.
+- 디자인 담당은 10월 5일까지 화면 시안을 준비합니다.
+- 개발 담당은 10월 7일까지 링크와 모바일 화면을 점검합니다.
+- 고객 문의 이메일 주소는 아직 정하지 않았습니다.
+
+결과 형식: ① 결정사항 ② 할 일(담당·기한 표) ③ 추가 확인사항.
+간결하게 답해 주세요.`;
+const followupPrompt = '위 할 일을 기한순 체크리스트로 바꿔 주세요. 결정사항과 미정 항목은 마지막에 따로 적어 주세요. 이 대화의 내용만 사용하고 도구 호출, 파일 저장, Wiki 수정, 외부 전송은 하지 마세요.';
+const pages = [
+ {slug:'new-session',title:'새 세션에서 요청 보내기',description:'새 대화를 열고, 원하는 작업과 결과 형식을 입력해 요청합니다.',category:'세션',toc:[['prepare','시작하기 전에'],['open','새 세션 열기'],['compose','요청 작성하기'],['send','보내고 상태 확인하기']],body:(fig)=>`
+  <section id="prepare"><h2>시작하기 전에</h2><p>사용할 워커 콘솔에 로그인하세요. 이 예제는 실제 고객 자료 대신 가상의 회의 메모를 사용합니다.</p><div class="note"><strong>이번 예제에서 해 볼 일</strong>회의 메모를 결정사항·담당별 할 일·추가 확인사항으로 정리하도록 요청합니다. 파일이나 외부 서비스의 데이터를 변경하지 않습니다.</div></section>
+  <section id="open"><h2 class="step-title"><span class="step-number">1</span>새 세션 열기</h2><p>왼쪽 <strong>세션</strong> 항목 옆의 <strong>＋(새 세션)</strong> 버튼을 선택합니다. 빈 대화 화면 아래에 요청 입력란이 나타납니다.</p>${fig('01-new-session.png','새 세션의 실제 요청 입력 화면','새 세션을 열면 빈 입력란과 실행 프로필이 표시됩니다.')}</section>
+  <section id="compose"><h2 class="step-title"><span class="step-number">2</span>할 일과 원하는 결과를 입력하기</h2><p>입력란에 <strong>작업할 내용·참고자료·결과 형식</strong>을 함께 적습니다. 아래 예제를 복사해 사용해 보세요.</p><div class="prompt"><div class="prompt-header"><span>직접 실행해 볼 예제</span><button class="copy-button" data-copy="sample-prompt" type="button">예제 복사</button></div><pre id="sample-prompt">${esc(prompt)}</pre></div>${fig('02-compose.png','회의 메모 정리 요청을 실제로 입력한 화면','요청 입력 후 보내기 버튼(위쪽 화살표)이 활성화됩니다.')}<p>입력란 옆에는 <strong>모델·추론 강도·속도</strong>가 표시됩니다. 선택 가능한 항목은 워커 구성에 따라 다릅니다. 이번 촬영은 기본 선택을 유지했습니다.</p></section>
+  <section id="send"><h2 class="step-title"><span class="step-number">3</span>보내기를 누르고 상태 확인하기</h2><p><strong>보내기(↑)</strong>를 선택합니다. 실행 중에는 입력란 위에 <strong>작업 진행중</strong>이 표시됩니다. 전송 직후 같은 요청을 반복해서 보내기보다 현재 상태를 먼저 확인하세요.</p>${fig('03-running.png','요청 전송 후 작업 진행중 표시','작업 진행중은 요청 처리 상태이며 결과 생성 성공을 뜻하지 않습니다.')}<div class="note"><strong>이 샘플의 실제 실행 결과</strong>첫 실행은 상태 파일 잠금으로 차단되었고, 운영 담당자 확인 후 재실행한 요청은 정상 완료되었습니다. 다음 문서에서 정상 응답과 차단 응답을 함께 확인합니다.</div></section>`},
+ {slug:'task-status',title:'작업 상태와 결과 확인하기',description:'처리 중 표시와 최종 결과를 구분하고, 작업이 멈췄을 때 확인할 정보를 찾습니다.',category:'요청과 결과',toc:[['running','처리 중 상태'],['success','정상 결과 확인'],['final','차단 결과 확인'],['blocked','차단되었을 때']],body:(fig)=>`
+  <section id="running"><h2 class="step-title"><span class="step-number">1</span>진행 상태 확인하기</h2><p>요청을 보내면 <strong>작업 진행중</strong> 표시가 나타납니다. 진행 중 표시와 최종 응답을 구분해 확인합니다.</p>${fig('03-running.png','작업 진행중 표시가 나타난 실제 화면','이 화면만으로 작업 완료 여부를 판단하지 않습니다.')}</section>
+  <section id="success"><h2 class="step-title"><span class="step-number">2</span>정상 결과 확인하기</h2><p>워커가 답변을 마치면 <strong>최종 응답</strong>과 결과 상태가 표시됩니다. 이 예제에서는 회의 메모가 결정사항·담당/기한 표·추가 확인사항으로 정리되었습니다.</p>${fig('07-success.png','회의 메모가 표로 정리되고 정상 완료된 실제 응답','운영 담당자 확인 후 재실행한 요청: ok · turn completed · exit 0.')}<p>완료 표시와 함께 <strong>요청한 내용이 답변에 포함되었는지</strong>도 확인합니다. 예제의 담당·기한과 미정인 이메일 주소가 정확히 구분되어 있습니다.</p></section><section id="final"><h2 class="step-title"><span class="step-number">3</span>차단 결과 구분하기</h2><p>같은 예제의 첫 실행은 아래와 같이 <strong>Worker blocked</strong>로 종료되었습니다. 화면에 응답 카드가 나타났더라도 요청한 업무가 완료된 것은 아닙니다.</p>${fig('04-blocked.png','프로젝트 상태 파일 잠금 시간 초과로 차단된 실제 응답','실제 촬영 결과입니다. 성공 응답으로 재구성하거나 대체하지 않았습니다.')}<div class="result-list"><div class="result-item"><b>Objective: failed</b><span>요청한 목표가 완료되지 않음</span></div><div class="result-item"><b>Turn: blocked</b><span>작업이 차단된 상태로 종료</span></div><div class="result-item"><b>오류 메시지</b><span>상태 파일 잠금 대기 시간 초과</span></div></div></section>
+  <section id="blocked"><h2 class="step-title"><span class="step-number">4</span>확인할 정보를 모아 문의하기</h2><p>오류 메시지, 발생 시각, 요청한 작업, 화면의 <strong>Task 식별자</strong>를 확인합니다. 계정 비밀번호나 API 키는 문의 내용에 넣지 않습니다.</p><ul><li>오류가 실행 환경 문제이면 워커 운영 담당자에게 확인을 요청합니다.</li><li>외부 전송이나 자료 수정 작업은 실제 처리 여부를 확인한 뒤 재실행 여부를 결정합니다.</li><li>이 예제는 첫 실행에서 차단되었고, 운영 담당자 확인 후 다시 실행해 정상 요약을 받았습니다.</li></ul><div class="note"><strong>저장된 세션에서 이어서 확인</strong>실패한 요청도 이번 촬영에서 세션 검색으로 다시 찾을 수 있었습니다. 다음 문서에서는 검색으로 해당 대화를 다시 엽니다.</div></section>`},
+ {slug:'session-search',title:'이전 세션 찾아 다시 열기',description:'제목이나 메시지의 키워드로 저장된 대화를 찾고, 이전 요청과 결과를 다시 확인합니다.',category:'세션',toc:[['open-search','세션 검색 열기'],['keyword','키워드로 찾기'],['reopen','대화 다시 열기']],body:(fig)=>`
+  <section id="open-search"><h2 class="step-title"><span class="step-number">1</span>세션 검색 열기</h2><p>왼쪽 <strong>세션</strong> 항목 옆의 <strong>돋보기(세션 검색)</strong>를 선택합니다. 검색 창은 저장된 워커 채팅 세션의 제목과 메시지를 대상으로 합니다.</p></section>
+  <section id="keyword"><h2 class="step-title"><span class="step-number">2</span>기억나는 문장으로 검색하기</h2><p>앞에서 입력한 요청의 일부인 <strong>아래 가상 회의 메모</strong>를 검색어로 입력하고 <strong>검색</strong>을 선택합니다.</p>${fig('05-session-search.png','가상 회의 메모 키워드로 샘플 세션을 찾은 실제 화면','첫 실행 직후 촬영한 검색 결과입니다. 당시 샘플 세션 1건·2개 메시지가 표시되었습니다.')}<p>결과에서 <strong>세션 제목·최근 시각·메시지 수·프로젝트 표시</strong>를 확인하고 원하는 대화를 고릅니다.</p></section>
+  <section id="reopen"><h2 class="step-title"><span class="step-number">3</span>검색 결과를 선택해 대화 열기</h2><p>검색 결과를 선택하면 해당 세션의 이전 요청과 응답을 확인할 수 있습니다. 이번 예제에서는 저장된 요청과 차단 결과를 다시 확인했습니다.</p>${fig('06-reopened.png','검색 결과를 선택해 다시 연 샘플 대화','대화를 다시 여는 것과 작업을 재실행하는 것은 별개입니다.')}<div class="note"><strong>검색이 끝날 때까지 기다리세요</strong>“최근 세션을 불러오는 중입니다”가 표시되면 아직 결과를 읽고 있는 상태입니다. 로딩 중 화면을 최종 검색 결과로 판단하지 않습니다.</div></section>`}
+];
+
+pages.push({slug:'follow-up',title:'같은 세션에서 후속 요청하기',description:'앞에서 받은 결과를 바탕으로 형식이나 내용을 더 다듬습니다.',category:'요청과 결과',toc:[['context','기존 대화 확인'],['request','후속 요청 작성'],['result','바뀐 결과 확인']],body:(fig)=>`
+  <section id="context"><h2 class="step-title"><span class="step-number">1</span>이어 갈 대화 확인하기</h2><p>앞에서 회의 메모를 정리한 세션을 그대로 사용합니다. 대화를 나갔다면 <strong>세션 검색</strong>으로 찾아 다시 엽니다. 후속 요청 전에 이전 응답이 완료되었는지 확인합니다.</p>${fig('07-success.png','후속 요청의 바탕이 되는 회의 메모 정리 결과','이전 답변에 있던 두 가지 할 일을 다시 정리해 봅니다.')}</section>
+  <section id="request"><h2 class="step-title"><span class="step-number">2</span>바꾸고 싶은 부분 요청하기</h2><p>같은 입력란에 <strong>어떤 내용을 어떻게 바꿀지</strong> 적고 <strong>보내기(↑)</strong>를 선택합니다. 이번에는 담당·기한 표를 기한순 체크리스트로 바꿉니다.</p><div class="prompt"><div class="prompt-header"><span>같은 세션에서 실행할 예제</span><button class="copy-button" data-copy="followup-prompt" type="button">예제 복사</button></div><pre id="followup-prompt">${esc(followupPrompt)}</pre></div>${fig('08-followup-compose.png','앞선 응답 아래에 후속 요청을 입력한 실제 화면','새 세션을 만들지 않고 같은 대화에서 이어서 요청합니다.')}</section>
+  <section id="result"><h2 class="step-title"><span class="step-number">3</span>요청한 형식으로 바뀌었는지 확인하기</h2><p>실제 응답에서 <strong>10월 5일 → 10월 7일</strong> 순으로 할 일이 정리되고, 결정사항과 미정 항목이 분리되었습니다. 결과 하단의 <strong>ok · turn completed · exit 0</strong>도 확인할 수 있습니다.</p>${fig('09-followup-result.png','같은 대화의 내용을 기한순 체크리스트로 바꾼 실제 최종 응답','후속 요청과 실제 결과를 함께 촬영했습니다.')}<div class="note"><strong>내용을 함께 점검하세요</strong>형식이 바뀌어도 담당자·기한·미정 사항이 원래 내용과 일치하는지 확인합니다. 이 예제는 대화 안의 문장을 정리하는 작업입니다.</div></section>`});
+pages.push(...fullGuides(esc));
+
+function shell(page,body,isHome=false){
+ const prefix=isHome?'':'../';
+ const groups=new Map();
+ for(const p of pages){if(!groups.has(p.category)) groups.set(p.category,[]); groups.get(p.category).push(p);}
+ const nav=[...groups].map(([category,items])=>`<div class="sidebar-group"><span class="sidebar-label">${esc(category)}</span>${items.map(p=>`<a href="${prefix}${p.slug}/" ${page?.slug===p.slug?'aria-current="page"':''}>${esc(p.title)}</a>`).join('')}</div>`).join('');
+ return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(page?.title??'워커 기능별 매뉴얼')} · 워커 매뉴얼</title><meta name="description" content="${esc(page?.description??'실제 워커 화면으로 따라 하는 기능별 사용법')} "><link rel="stylesheet" href="${prefix}manual.css"><script src="${prefix}manual.js" defer></script></head><body><a class="skip" href="#main">본문으로 이동</a><header class="topbar"><a class="brand" href="${prefix}index.html"><span class="brand-mark">W</span>워커 매뉴얼 <span>DreamLabs</span></a><nav class="top-links" aria-label="주요 메뉴"><a href="${prefix}index.html">기능별 사용법</a><span>화면 기준 2026.10.01</span></nav></header><div class="layout"><aside class="sidebar" aria-label="기능별 문서"><span class="sidebar-label">기능별 사용법</span>${nav}<hr><p>실제 워커 화면을 바탕으로 작성했습니다. 각 문서에서 실행 검증 범위를 확인하세요.</p><p>콘솔 표시 버전 v0.1.0<br>제품의 공개 릴리스 번호는 확인 전입니다.</p></aside><main class="page" id="main"><div class="page-inner">${body}</div></main></div><footer class="footer"><span>DreamLabs · 워커 사용자 매뉴얼</span><span>2026.10.01 실제 화면 확인</span></footer><dialog id="screenshot-dialog" class="screenshot-dialog" aria-label="화면 캡처 확대"><div class="dialog-bar"><span data-image-title>화면 캡처</span><button type="button" data-close>닫기</button></div><img alt=""></dialog><span id="copy-status" class="sr-only" role="status"></span></body></html>`;
+}
+
+for(let i=0;i<pages.length;i++){
+ const p=pages[i];
+ const fig=(name,alt,caption)=>`<figure class="figure"><button type="button" class="capture-button" data-capture aria-label="${esc(alt)} 확대"><img src="../../assets/screenshots/2026-10-01/${name}" alt="${esc(alt)}" loading="lazy"></button><figcaption><span>${esc(caption)}</span><span>선택하여 확대 ↗</span></figcaption></figure>`;
+ const sameCategory=pages.filter(x=>x.slug!==p.slug && x.category===p.category);
+ const other=sameCategory.length ? sameCategory.slice(0,3) : pages.filter(x=>x.slug!==p.slug).slice(0,2);
+ const body=`<div class="breadcrumbs"><a href="../index.html">기능별 사용법</a> / ${esc(p.category)}</div><span class="eyebrow">FEATURE GUIDE · ${String(i+1).padStart(2,'0')}</span><h1>${esc(p.title)}</h1><p class="lead">${esc(p.description)}</p><div class="metadata"><b>실제 화면 캡처</b><span>확인일 2026.10.01</span><span>약 3분 읽기</span></div><div class="article-grid"><article class="article">${p.body(fig)}<nav class="related" aria-label="관련 문서">${other.map(x=>`<a href="../${x.slug}/"><small>함께 볼 사용법</small>${esc(x.title)} →</a>`).join('')}</nav></article><aside class="toc" aria-label="이 페이지 목차"><strong>이 페이지에서</strong>${p.toc.map(([id,label])=>`<a href="#${id}">${esc(label)}</a>`).join('')}<p>이미지를 선택하면<br>크게 볼 수 있습니다.</p></aside></div>`;
+ await mkdir(path.join(out,p.slug),{recursive:true});
+ await writeFile(path.join(out,p.slug,'index.html'),shell(p,body),'utf8');
+}
+const home=`<div class="breadcrumbs">사용자 매뉴얼 / 기능별 사용법</div><span class="eyebrow">WORKER MANUAL · LIVE SCREEN GUIDE</span><h1>워커 기능별 사용법</h1><p class="lead">요청과 세션부터 대시보드·예약·프로젝트·Wiki·설정까지 화면별로 찾아보세요. 실제로 실행한 예제와 화면만 완료 사례로 표시합니다.</p><div class="metadata"><b>기능 문서 ${pages.length}개</b><span>실제 콘솔 화면 기준</span><span>2026.10.01 확인</span></div><div class="cards">${pages.map((p,i)=>`<a class="feature-card" href="${p.slug}/"><span class="num">${String(i+1).padStart(2,'0')} · ${esc(p.category)}</span><h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="arrow">사용법 보기 →</span></a>`).join('')}</div><div class="note"><strong>실행 검증 범위</strong>가상 회의 메모의 요청·정상 결과·후속 요청·세션 검색은 직접 실행했습니다. 다른 화면은 조작 항목을 확인했으며, 생성·저장·연동이 실제로 끝난 것으로 표시하지 않습니다. 운영 전용 설정은 별도 내부 문서에서 관리합니다.</div>`;
+await writeFile(path.join(out,'index.html'),shell(null,home,true),'utf8');
+const rootHome=shell(null,home,true)
+  .replaceAll('href="manual.css"','href="guide/manual.css"')
+  .replaceAll('src="manual.js"','src="guide/manual.js"')
+  .replace(/href="([a-z-]+)\/"/g,'href="guide/$1/"');
+await writeFile(path.join(root,'index.html'),rootHome,'utf8');
+console.log(`Generated ${pages.length+1} static guide pages.`);

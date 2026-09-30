@@ -1,0 +1,78 @@
+{
+  "capturedDate": "2026-10-01",
+  "timezone": "Asia/Seoul",
+  "productRelease": null,
+  "consoleDisplayedVersion": "v0.1.0",
+  "source": "Actual Worker console screenshots",
+  "processing": "Geometric crop only; original captures kept outside public site",
+  "screenshots": [
+    {
+      "file": "01-new-session.png",
+      "sha256": "86d1b0492136693d90e347830927a5d5983e66641c05a2e8dce447c0fd4773cc"
+    },
+    {
+      "file": "02-compose.png",
+      "sha256": "43fa2838d45d3a23422485541c9832ccad97250d4b6a7286df8cf5605aa271c8"
+    },
+    {
+      "file": "03-running.png",
+      "sha256": "6ad1d35cf6706a79d82d301432d068456ad4fe2a093800b0dcb88fbf6ddd5ebe"
+    },
+    {
+      "file": "04-blocked.png",
+      "sha256": "4b3a4c57199e7747e8fae1f6b6474231d862a1c77112c27a58035714d7de5464"
+    },
+    {
+      "file": "05-session-search.png",
+      "sha256": "5f50fbc199e6831e4defd8383af3791ff1470fb60e163910f61b677e47150f9e"
+    },
+    {
+      "file": "06-reopened.png",
+      "sha256": "4b3a4c57199e7747e8fae1f6b6474231d862a1c77112c27a58035714d7de5464"
+    },
+    {
+      "file": "07-success.png",
+      "sha256": "2bf24f03997c0d6ce4b651697ab13c736ade8bf579f32a621ca084c9ef8669b9"
+    },
+    {
+      "file": "08-followup-compose.png",
+      "sha256": "da1806da7ca0acff78191fcab475517f69cb38d102ee1ab969536c37816538ab"
+    },
+    {
+      "file": "09-followup-result.png",
+      "sha256": "e4a1f0bce4819557f3417d887c9f840fb3b4e69852a6c028ff25dc366923941c"
+    },
+    {
+      "file": "10-dashboard-action.png",
+      "sha256": "1f4ec00ce93919a28284edcbd99448a7a2305172807342f1a2caf78432c71715"
+    },
+    {
+      "file": "preferences.png",
+      "sha256": "99d29f0b9ec9c6d1491ee5f4a2e2d7c22cb6a324436769a9b9e7cec66fad4b50"
+    },
+    {
+      "file": "project-editor.png",
+      "sha256": "1fde8fdaad080b76a951448e300e9eb8461bcc004d6e9e17fb0d00b9b0a592b5"
+    },
+    {
+      "file": "schedule-editor.png",
+      "sha256": "9432718936b9a0cdecc103abd64c283df0f0d5f5a4900b94d22d513d3e4ca775"
+    },
+    {
+      "file": "settings-overview.png",
+      "sha256": "aed3f22df2f09dc86dea252befc45bf4bb19936bab7a90cc2ca65edde127f5b8"
+    },
+    {
+      "file": "wiki-graph.png",
+      "sha256": "d50e989acc6709408ecbef2d7ecb00cc0dd17cc17074a8eec436253149e87a83"
+    },
+    {
+      "file": "wiki-workbench.png",
+      "sha256": "48916c9ba6e943551cfe632f5612b086bae704170c20ce1f1f74007d6213dcab"
+    },
+    {
+      "file": "workspace-explorer.png",
+      "sha256": "1561ae06401c304a2b069e4769c8e30f3427256a5e39a36d023e95b009f3a94a"
+    }
+  ]
+}
