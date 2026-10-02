@@ -18,6 +18,12 @@ const errors = [];
 let refs = 0;
 for (const page of pages) {
   const html = await readFile(page, 'utf8');
+  const relativePage = path.relative(root, page).replaceAll('\\', '/');
+  if (relativePage.startsWith('guide/') && relativePage !== 'guide/index.html') {
+    if (!html.includes('id="test-case"')) errors.push(`${relativePage}: missing reproducible test case`);
+    if (!html.includes('통과 기준') || !html.includes('남길 증거')) errors.push(`${relativePage}: missing test acceptance/evidence`);
+    if (relativePage !== 'guide/changes/index.html' && !html.includes('data-capture')) errors.push(`${relativePage}: missing real screenshot`);
+  }
   const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(x => x[1]));
   for (const [, attribute, value] of html.matchAll(/\b(href|src)="([^"]+)"/g)) {
     if (/^(https?:|mailto:|data:)/.test(value)) continue;
