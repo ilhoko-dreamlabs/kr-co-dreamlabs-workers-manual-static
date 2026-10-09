@@ -22,8 +22,9 @@ for (const page of pages) {
   if (relativePage.startsWith('guide/') && relativePage !== 'guide/index.html') {
     if (!html.includes('id="test-case"')) errors.push(`${relativePage}: missing reproducible test case`);
     if (!html.includes('통과 기준') || !html.includes('남길 증거')) errors.push(`${relativePage}: missing test acceptance/evidence`);
-    if (!['guide/changes/index.html','guide/release-history/index.html'].includes(relativePage) && !html.includes('data-capture') && !html.includes('화면 미촬영')) errors.push(`${relativePage}: missing real screenshot or explicit blocked capture status`);
-    if (relativePage === 'guide/release-history/index.html' && (!html.includes('id="current"') || !html.includes('id="previous"'))) errors.push(`${relativePage}: missing verified deployment entries`);
+    if (!['guide/changes/index.html','guide/release-history/index.html','guide/candidate-20261009-ui-context/index.html'].includes(relativePage) && !html.includes('data-capture') && !html.includes('화면 미촬영')) errors.push(`${relativePage}: missing real screenshot or explicit blocked capture status`);
+    if (relativePage === 'guide/release-history/index.html' && (!html.includes('id="candidate"') || !html.includes('id="current"') || !html.includes('id="previous"'))) errors.push(`${relativePage}: missing candidate or verified deployment entries`);
+    if (relativePage === 'guide/candidate-20261009-ui-context/index.html' && (!html.includes('운영 미적용') || !html.includes('후보 화면 캡처도 미촬영'))) errors.push(`${relativePage}: missing candidate status or screenshot boundary`);
   }
   const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(x => x[1]));
   for (const [, attribute, value] of html.matchAll(/\b(href|src)="([^"]+)"/g)) {

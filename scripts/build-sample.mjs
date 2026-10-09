@@ -5,6 +5,7 @@ import { fullGuides } from './full-guides.mjs';
 import { testCases } from './test-cases.mjs';
 import { latestGuides } from './latest-guides.mjs';
 import { releaseHistoryGuide } from './release-history.mjs';
+import { uiContextCandidateGuide } from './candidate-ui-context.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.join(root, 'guide');
@@ -44,6 +45,7 @@ pages.push({slug:'follow-up',title:'같은 세션에서 후속 요청하기',des
 pages.push(...fullGuides(esc));
 pages.push(...latestGuides);
 pages.push(releaseHistoryGuide);
+pages.push(uiContextCandidateGuide);
 
 pages.push({
  slug:'skill-registry', title:'공식 스킬 찾고 설치하기', description:'적용 대상과 설치·활성화 상태를 확인한 뒤 필요한 스킬 하나만 설치합니다.', category:'설정',
@@ -64,7 +66,7 @@ function shell(page,body,isHome=false){
  const groups=new Map();
  for(const p of pages){if(!groups.has(p.category)) groups.set(p.category,[]); groups.get(p.category).push(p);}
  const nav=[...groups].map(([category,items])=>`<div class="sidebar-group"><span class="sidebar-label">${esc(category)}</span>${items.map(p=>`<a href="${prefix}${p.slug}/" ${page?.slug===p.slug?'aria-current="page"':''}>${esc(p.title)}</a>`).join('')}</div>`).join('');
- const sourceLabel=page?(page.history?`배포 확인 ${page.verifiedAt}`:page.noScreenshot?`실행 이미지·소스 ${page.verifiedAt}`:page.slug==='changes'?'문서 이력 기준 2026.10.09':'과거 화면 2026.10.01'):'문서 기준 2026.10.09';
+ const sourceLabel=page?(page.candidate?`운영 미적용 후보 ${page.verifiedAt}`:page.history?`배포 확인 ${page.verifiedAt}`:page.noScreenshot?`실행 이미지·소스 ${page.verifiedAt}`:page.slug==='changes'?'문서 이력 기준 2026.10.09':'과거 화면 2026.10.01'):'문서 기준 2026.10.09';
  return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(page?.title??'워커 기능별 매뉴얼')} · 워커 매뉴얼</title><meta name="description" content="${esc(page?.description??'실제 워커 화면으로 따라 하는 기능별 사용법')} "><link rel="stylesheet" href="${prefix}manual.css"><script src="${prefix}manual.js" defer></script></head><body><a class="skip" href="#main">본문으로 이동</a><header class="topbar"><a class="brand" href="${prefix}index.html"><span class="brand-mark">W</span>워커 매뉴얼 <span>DreamLabs</span></a><nav class="top-links" aria-label="주요 메뉴"><a href="${prefix}index.html">기능별 사용법</a><a href="${prefix}release-history/">버전별 개선</a><span>${sourceLabel}</span></nav></header><div class="layout"><aside class="sidebar" aria-label="기능별 문서"><span class="sidebar-label">기능별 사용법</span>${nav}<hr><p>실제 워커 화면을 바탕으로 작성했습니다. 각 문서에서 실행 검증 범위를 확인하세요.</p><p>과거 캡처에는 v0.1.0이 표시됐습니다.<br>배포별 개선은 버전별 개선 이력에서 확인하세요.</p></aside><main class="page" id="main"><div class="page-inner">${body}</div></main></div><footer class="footer"><span>DreamLabs · 워커 사용자 매뉴얼</span><span>${sourceLabel}</span></footer><dialog id="screenshot-dialog" class="screenshot-dialog" aria-label="화면 캡처 확대"><div class="dialog-bar"><span data-image-title>화면 캡처</span><button type="button" data-close>닫기</button></div><img alt=""></dialog><span id="copy-status" class="sr-only" role="status"></span></body></html>`;
 }
 
@@ -79,7 +81,7 @@ for(let i=0;i<pages.length;i++){
  const testBlock=`<section id="test-case" class="test-case"><span class="eyebrow">${historyPage?'이력 대조':'따라 해 보는 기능 검사'}</span><h2>${historyPage?'이력과 실제 워커 대조하기':'이 화면을 직접 테스트하기'}</h2><p class="test-scope">${historyPage?'아래는 이력의 적용 범위와 실제 워커를 비교하는 절차입니다.':'아래는 독자가 실행할 검사 절차입니다. 이 페이지에 적힌 기대 결과는 이번 배포에서 통과했다는 뜻이 아닙니다.'}</p><h3>시작 조건</h3><p>${esc(check.setup)}</p><h3>실행 순서</h3><ol>${check.steps.map(step=>`<li>${esc(step)}</li>`).join('')}</ol><h3>통과 기준</h3><p>${esc(check.expected)}</p><h3>남길 증거</h3><p>${esc(check.evidence)}</p><div class="test-result"><strong>판정 기록</strong><span>통과 / 실패 / 차단 / 미실행 중 하나를 고르고 워커·확인 시각을 함께 적으세요.</span></div></section>`;
  const evidenceLabel=p.evidenceLabel??(p.slug==='changes'?'문서 이력 확인':'실제 화면 캡처');
  const verifiedAt=p.verifiedAt??(p.slug==='changes'?'2026.10.09':'2026.10.01');
- const imageNote=p.history?'이 페이지는 배포별 개선 내역과 확인 범위를 기록합니다.':p.noScreenshot?'최신 화면 캡처는 확인 전입니다.':p.slug==='changes'?'이 페이지는 문서 갱신을 기록합니다.':'2026.10.01 과거 캡처입니다. 최신 화면은 확인 전입니다.';
+ const imageNote=p.candidate?'이 후보는 운영 미적용이며 실제 화면 캡처 전입니다.':p.history?'이 페이지는 배포별 개선 내역과 확인 범위를 기록합니다.':p.noScreenshot?'최신 화면 캡처는 확인 전입니다.':p.slug==='changes'?'이 페이지는 문서 갱신을 기록합니다.':'2026.10.01 과거 캡처입니다. 최신 화면은 확인 전입니다.';
  const quick=p.quick?`<section class="quickstart" aria-label="이 기능 한눈에 보기"><h2>한눈에 따라하기</h2><div class="quickstart-grid"><div><span>1 · 화면 열기</span><p>${esc(p.quick.where)}</p></div><div><span>2 · 해볼 조작</span><p>${esc(p.quick.do)}</p></div><div><span>3 · 결과 확인</span><p>${esc(p.quick.check)}</p></div></div><p class="quickstart-status">${p.noScreenshot?'화면 미촬영 · 아래 메뉴 설명은 실행 이미지의 소스를 기준으로 작성했습니다.':'아래 실제 화면과 함께 확인하세요.'}</p></section>`:'';
  const mobileToc=`<nav class="mobile-toc" aria-label="이 페이지의 단계"><strong>바로 이동</strong><div>${p.toc.map(([id,label])=>`<a href="#${id}">${esc(label)}</a>`).join('')}<a href="#test-case">직접 테스트</a></div></nav>`;
  const evidenceBanner=!p.verifiedAt && p.slug!=='changes' ? '<div class="note capture-warning"><strong>최신 화면 재촬영 전</strong>이 페이지의 캡처와 클릭 결과는 2026년 10월 1일 worker00 기준입니다. 이후 좌측 탐색과 일부 설정 UI가 바뀌었습니다. 현재 배포의 화면 증거로 사용하지 말고, 실행 검사에서는 최신 메뉴와 실제 결과를 새로 기록하세요. <a href="../console-navigation/">새 탐색 메뉴 안내</a></div>' : '';
@@ -88,12 +90,12 @@ for(let i=0;i<pages.length;i++){
  await writeFile(path.join(out,p.slug,'index.html'),shell(p,body),'utf8');
 }
 const categories=[...new Set(pages.map(p=>p.category))];
-const catalog=categories.map((category,n)=>`<section class="catalog-section" id="category-${n+1}"><div class="catalog-heading"><h2>${esc(category)}</h2><a href="#main">맨 위로 ↑</a></div><div class="cards">${pages.filter(p=>p.category===category).map(p=>`<a class="feature-card" href="${p.slug}/"><span class="num">${esc(p.category)}</span><h3>${esc(p.title)}</h3><p>${esc(p.description)}</p><span class="card-evidence">${p.history?'제품 배포 이력':p.noScreenshot?'최신 화면 미촬영':p.slug==='changes'?'문서 갱신 이력':'2026.10.01 과거 화면'}</span><span class="arrow">사용법·테스트 보기 →</span></a>`).join('')}</div></section>`).join('');
+const catalog=categories.map((category,n)=>`<section class="catalog-section" id="category-${n+1}"><div class="catalog-heading"><h2>${esc(category)}</h2><a href="#main">맨 위로 ↑</a></div><div class="cards">${pages.filter(p=>p.category===category).map(p=>`<a class="feature-card" href="${p.slug}/"><span class="num">${esc(p.category)}</span><h3>${esc(p.title)}</h3><p>${esc(p.description)}</p><span class="card-evidence">${p.candidate?'업데이트 후보 · 운영 미적용':p.history?'제품 배포 이력':p.noScreenshot?'최신 화면 미촬영':p.slug==='changes'?'문서 갱신 이력':'2026.10.01 과거 화면'}</span><span class="arrow">사용법·테스트 보기 →</span></a>`).join('')}</div></section>`).join('');
 const home=`<div class="breadcrumbs">사용자 매뉴얼 / 기능별 사용법</div><span class="eyebrow">WORKER MANUAL · SCREEN &amp; TEST GUIDE</span><h1>워커 기능별 사용법</h1><p class="lead">하고 싶은 일을 고르면 화면 위치, 조작 순서, 기대 결과와 테스트 방법을 함께 볼 수 있습니다.</p><div class="metadata"><b>안내 문서 ${pages.length}개</b><span>페이지별 검사 ${Object.keys(testCases).length}개</span><span>2026.10.09 배포 확인</span></div><p class="release-home-link"><a href="release-history/">워커 버전별 개선 이력 보기 →</a></p><section class="start-here"><h2>처음이라면 여기서 시작하세요</h2><div class="start-grid"><a href="new-session/"><span>01</span><strong>요청 보내기</strong><small>가상 회의 메모로 첫 요청을 연습합니다.</small></a><a href="task-status/"><span>02</span><strong>결과 읽기</strong><small>진행 중·완료·차단을 구분합니다.</small></a><a href="session-search/"><span>03</span><strong>다시 찾기</strong><small>저장된 대화를 검색해 엽니다.</small></a></div><p>이 세 예제의 실제 화면은 2026년 10월 1일 촬영본입니다. 현재 메뉴 위치는 <a href="console-navigation/">새 탐색 메뉴 안내</a>에서 먼저 확인하세요.</p></section><nav class="category-jump" aria-label="기능 분류 바로 가기"><strong>기능 찾기</strong>${categories.map((category,n)=>`<a href="#category-${n+1}">${esc(category)}</a>`).join('')}</nav><div class="note capture-warning"><strong>최신 화면 캡처 확인 전</strong>10월 9일 worker0·worker00의 동일 실행 이미지와 소스를 확인했고 worker00 대시보드를 열었습니다. 스킬 정책, 워커 간 요청 및 업데이트의 세부 화면은 직접 촬영하거나 동작을 검증하지 못했습니다. 10월 1일 캡처는 날짜가 표시된 과거 사례이며 현재 화면 증거가 아닙니다. 신규 기능 페이지는 화면 미촬영 상태로 게시합니다.</div>${catalog}<div class="note"><strong>테스트 기록 기준</strong>각 페이지 끝의 절차를 실행할 때 워커 ID·이미지/콘솔 버전·확인 시각을 기록하세요. 실제 결과가 기준에 맞으면 「통과」, 다르면 「실패」, 권한·환경 문제로 끝까지 실행할 수 없으면 「차단」, 실행하지 않았으면 「미실행」입니다. 비밀값과 계정 정보는 공개 캡처에 넣지 않습니다.</div><div class="note"><strong>검증 상태</strong>가상 회의 메모의 요청·정상 결과·후속 요청·세션 검색은 10월 1일 worker00에서 직접 실행했습니다. 나머지 절차는 현재 배포에서 새로 실행해 통과시킨 결과가 아닙니다. 관리자 운영 설정과 전체 업데이트의 실제 적용 절차는 내부 운영 문서에서 관리합니다.</div>`;
 await writeFile(path.join(out,'index.html'),shell(null,home,true),'utf8');
 const rootHome=shell(null,home,true)
   .replaceAll('href="manual.css"','href="guide/manual.css"')
   .replaceAll('src="manual.js"','src="guide/manual.js"')
-  .replace(/href="([a-z-]+)\/"/g,'href="guide/$1/"');
+  .replace(/href="([a-z0-9-]+)\/"/g,'href="guide/$1/"');
 await writeFile(path.join(root,'index.html'),rootHome,'utf8');
 console.log(`Generated ${pages.length+1} static guide pages.`);
