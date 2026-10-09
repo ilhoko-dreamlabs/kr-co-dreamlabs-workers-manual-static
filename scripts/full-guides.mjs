@@ -131,12 +131,12 @@ const guides = [
     ]
   },
   {
-    slug:'changes', category:'버전', title:'버전과 변경 이력 확인하기', description:'현재 확인된 화면 기준과 제품 릴리스 이력을 구분합니다.',
+    slug:'changes', category:'버전', title:'매뉴얼 갱신 이력', description:'이 사용설명서에 추가·수정한 내용과 화면 증거의 날짜를 확인합니다.',
     sections:[
-      {id:'current',title:'현재 배포와 과거 화면 구분',text:'2026년 10월 8일 읽기 전용 운영 조회에서 운영 중인 두 워커의 이미지가 정상 실행 중임을 확인했다. 한 워커에는 이후의 스킬 상태 호환 보정이 추가됐다. 정확한 배포 식별자는 내부 검증 문서에서 관리한다. 이 문서의 기존 캡처는 2026년 10월 1일 화면이므로 현재 메뉴의 증거가 아니다.'},
-      {id:'docs',title:'새 기능별 안내',text:'2026년 10월 2일 공식 스킬 선택 설치 안내를 추가했다. 10월 8일에는 새 탐색·모바일 메뉴, 승인 기반 다른 워커 요청, 요청별 스킬 로딩, 전체 업데이트 상태의 별도 페이지와 재현 검사 절차를 추가했다. 이 네 화면의 최신 캡처와 직접 클릭 결과는 확보 전이다.'},
-      {id:'scope',title:'배포와 미배포 변경 구분',text:'10월 8일 실행 이미지에는 새 탐색, 스킬 로딩, RRA 협업 및 새로고침 관리가 포함된다. 개발 작업 트리에서 진행 중인 동적 한국어·영어 전환 보정은 이 실행 이미지에 포함된 것으로 안내하지 않는다. 정식 공통 제품 릴리스 번호는 아직 확정되지 않았다.'},
-      {id:'release',title:'검사와 릴리스 기록 기준',text:'이미지 정상 실행은 각 화면의 저장·승인·실행이 통과했다는 뜻이 아니다. 각 기능 페이지의 시작 조건, 조작, 재조회와 최종 결과를 배포된 워커에서 다시 검증한다. 화면을 새로 촬영하면 워커·이미지·시각과 함께 캡처를 연결하고, 문서 날짜를 제품 릴리스 번호로 사용하지 않는다.'}
+      {id:'current',title:'2026.10.09 · 제품 개선 이력 분리',text:'제품 배포별 개선 내용을 별도의 버전별 개선 이력 페이지로 옮겼다. 현재와 직전 확인 배포를 적용 워커별로 나누고, 공식 제품 릴리스 번호가 확정되지 않았다는 점을 명시했다.'},
+      {id:'layout',title:'2026.10.08 · 따라 하기 화면 정리',text:'첫 사용자용 경로, 기능별 분류, 최신 기능 다섯 페이지의 화면 열기 → 조작 → 결과 확인 요약과 모바일 단계 바로 가기를 추가했다. 새 화면을 촬영했다는 뜻은 아니다.'},
+      {id:'docs',title:'2026.10.08 · 새 기능 문서 추가',text:'새 탐색·모바일 메뉴, 승인 기반 다른 워커 요청, 요청별 스킬 로딩, 전체 업데이트 상태의 별도 사용법과 재현 검사를 추가했다. 10월 1일 캡처는 과거 화면으로 표시했다.'},
+      {id:'first',title:'2026.10.01 · 첫 실제 화면 예제',text:'worker00에서 가상 회의 메모의 요청·결과·후속 요청·세션 검색을 실행하고 실제 화면을 촬영했다. 이후의 메뉴·설정 변경을 보여 주는 최신 캡처로 사용하지 않는다.'}
     ]
   }
 ];
@@ -145,6 +145,6 @@ export function fullGuides(esc) {
   return guides.map(g=>({
     slug:g.slug,title:g.title,description:g.description,category:g.category,
     toc:g.sections.map(s=>[s.id,s.title]),
-    body:fig=>g.sections.map((s,i)=>`<section id="${s.id}"><h2 class="step-title"><span class="step-number">${i+1}</span>${esc(s.title)}</h2><p>${esc(s.text)}</p>${s.image?fig(s.image,s.alt,s.caption):''}</section>`).join('')
+    body:fig=>(g.slug==='changes'?'<div class="note"><strong>제품 배포별 변경을 찾으세요?</strong><a href="../release-history/">워커 버전별 개선 이력 보기 →</a></div>':'')+g.sections.map((s,i)=>`<section id="${s.id}"><h2 class="step-title"><span class="step-number">${i+1}</span>${esc(s.title)}</h2><p>${esc(s.text)}</p>${s.image?fig(s.image,s.alt,s.caption):''}</section>`).join('')
   }));
 }

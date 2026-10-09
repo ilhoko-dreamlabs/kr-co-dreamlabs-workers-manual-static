@@ -1,11 +1,11 @@
-// 2026-10-08: exact running images contain these surfaces. Fresh browser captures and UI acceptance remain pending.
-const scope = '<div class="note"><strong>현재 확인 범위</strong>2026년 10월 8일 운영 중인 두 워커의 실행 이미지 및 해당 소스에서 기능을 확인했습니다. 이 문서 작업에서는 인증된 최신 화면을 열지 못해 새 화면 캡처와 직접 클릭 검증은 아직 없습니다. 아래 절차는 테스트 안내이며 실행 통과 기록이 아닙니다.</div>';
+// 2026-10-09: exact running images contain these surfaces. Fresh browser captures and UI acceptance remain pending.
+const scope = '<div class="note"><strong>현재 확인 범위</strong>2026년 10월 9일 운영 중인 두 워커의 실행 이미지 및 해당 소스에서 기능을 확인했습니다. worker00 대시보드는 열었지만 이 기능의 세부 화면 캡처와 직접 조작 검증은 아직 없습니다. 아래 절차는 테스트 안내이며 실행 통과 기록이 아닙니다.</div>';
 
 export const latestGuides = [
   {
     slug:'console-navigation', title:'새 탐색 메뉴와 모바일 화면', category:'세션',
     description:'접히는 메뉴에서 세션·프로젝트·외부 요청을 찾고 모바일에서도 같은 목적지로 이동합니다.',
-    verifiedAt:'2026.10.08', evidenceLabel:'실행 이미지·소스 확인 / 화면 미촬영', noScreenshot:true,
+    verifiedAt:'2026.10.09', evidenceLabel:'실행 이미지·소스 확인 / 화면 미촬영', noScreenshot:true,
     quick:{where:'콘솔 왼쪽 메뉴 · 모바일에서는 메뉴 버튼',do:'최근 세션·프로젝트·외부 요청 그룹을 펼쳐 원하는 항목 선택',check:'선택 항목 강조와 본문 이동, 모바일 서랍 닫힘 확인'},
     toc:[['scope','적용 범위'],['groups','메뉴 구조'],['navigate','목적지 열기'],['mobile','모바일에서 열기'],['refresh','새로고침 후 확인']],
     body:()=>`
@@ -18,7 +18,7 @@ export const latestGuides = [
   {
     slug:'remote-collaboration', title:'다른 워커에 요청하고 결과 이어받기', category:'요청과 결과',
     description:'설정된 대상 워커에 한 번의 승인을 거쳐 요청하고 같은 원격 대화에서 후속 요청을 이어갑니다.',
-    verifiedAt:'2026.10.08', evidenceLabel:'실행 이미지·소스 확인 / 화면 미촬영', noScreenshot:true,
+    verifiedAt:'2026.10.09', evidenceLabel:'실행 이미지·소스 확인 / 화면 미촬영', noScreenshot:true,
     quick:{where:'Remote Request API → 협업',do:'대상·요약·만료를 확인한 뒤 해당 요청만 1회 승인',check:'보낸 요청의 최종 상태와 대상 요청의 결과를 대조'},
     toc:[['scope','시작 조건'],['prepare','요청 준비'],['approve','1회 승인'],['result','결과 확인'],['continue','같은 대화 이어가기'],['failure','차단·불확실한 전송']],
     body:()=>`
@@ -32,7 +32,7 @@ export const latestGuides = [
   {
     slug:'skill-loading', title:'스킬 선택과 로딩 상태 확인하기', category:'설정',
     description:'설치·사용 허용·선택·새 작업 적용을 나눠 읽고 스킬이 선택된 이유를 확인합니다.',
-    verifiedAt:'2026.10.08', evidenceLabel:'실행 이미지·소스 확인 / 화면 미촬영', noScreenshot:true,
+    verifiedAt:'2026.10.09', evidenceLabel:'실행 이미지·소스 확인 / 화면 미촬영', noScreenshot:true,
     quick:{where:'설정 → 스킬 → 주입 정책',do:'사용 허용·로딩 방식·범위를 확인하고 선택 미리보기 실행',check:'새 작업 뒤 실제 선택 ID·사유·정책 revision 재조회'},
     toc:[['scope','상태 구분'],['modes','로딩 방식'],['preview','선택 미리보기'],['effective','실제 선택 확인'],['limits','한도와 차단']],
     body:()=>`
@@ -45,7 +45,7 @@ export const latestGuides = [
   {
     slug:'whole-update', title:'워커 전체 업데이트 상태 읽기', category:'설정',
     description:'관리자 화면에서 할당·차단 사유·유지보수 단계와 보존 요청 상태를 확인합니다.',
-    verifiedAt:'2026.10.08', evidenceLabel:'실행 이미지·소스 확인 / 화면 미촬영', noScreenshot:true,
+    verifiedAt:'2026.10.09', evidenceLabel:'실행 이미지·소스 확인 / 화면 미촬영', noScreenshot:true,
     quick:{where:'대시보드 → 업데이트 열기 또는 설정 → 런타임 → 전체 업데이트',do:'현재·대상 할당과 차단 사유를 읽기 전용으로 확인',check:'단계와 보존 요청 상태를 재조회해 기록'},
     toc:[['scope','접근과 적용 범위'],['inspect','할당 확인'],['run','수동 업데이트'],['maintenance','유지보수 중'],['finish','완료·복구 판단']],
     body:()=>`

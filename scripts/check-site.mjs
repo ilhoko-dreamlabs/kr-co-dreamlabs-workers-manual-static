@@ -22,7 +22,8 @@ for (const page of pages) {
   if (relativePage.startsWith('guide/') && relativePage !== 'guide/index.html') {
     if (!html.includes('id="test-case"')) errors.push(`${relativePage}: missing reproducible test case`);
     if (!html.includes('통과 기준') || !html.includes('남길 증거')) errors.push(`${relativePage}: missing test acceptance/evidence`);
-    if (relativePage !== 'guide/changes/index.html' && !html.includes('data-capture') && !html.includes('화면 미촬영')) errors.push(`${relativePage}: missing real screenshot or explicit blocked capture status`);
+    if (!['guide/changes/index.html','guide/release-history/index.html'].includes(relativePage) && !html.includes('data-capture') && !html.includes('화면 미촬영')) errors.push(`${relativePage}: missing real screenshot or explicit blocked capture status`);
+    if (relativePage === 'guide/release-history/index.html' && (!html.includes('id="current"') || !html.includes('id="previous"'))) errors.push(`${relativePage}: missing verified deployment entries`);
   }
   const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(x => x[1]));
   for (const [, attribute, value] of html.matchAll(/\b(href|src)="([^"]+)"/g)) {
