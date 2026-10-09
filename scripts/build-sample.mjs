@@ -6,9 +6,11 @@ import { testCases } from './test-cases.mjs';
 import { latestGuides } from './latest-guides.mjs';
 import { releaseHistoryGuide } from './release-history.mjs';
 import { uiContextCandidateGuide } from './candidate-ui-context.mjs';
+import { securityCodexCandidateGuide } from './candidate-security-codex.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.join(root, 'guide');
+const documentDate = '2026.10.10';
 const esc = text => String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const prompt = `아래 가상 회의 메모를 정리해 주세요.
 제공한 내용만 사용하고 도구 호출, 파일 저장, Wiki 수정, 외부 전송은 하지 마세요.
@@ -45,6 +47,7 @@ pages.push({slug:'follow-up',title:'같은 세션에서 후속 요청하기',des
 pages.push(...fullGuides(esc));
 pages.push(...latestGuides);
 pages.push(releaseHistoryGuide);
+pages.push(securityCodexCandidateGuide);
 pages.push(uiContextCandidateGuide);
 
 pages.push({
@@ -66,7 +69,7 @@ function shell(page,body,isHome=false){
  const groups=new Map();
  for(const p of pages){if(!groups.has(p.category)) groups.set(p.category,[]); groups.get(p.category).push(p);}
  const nav=[...groups].map(([category,items])=>`<div class="sidebar-group"><span class="sidebar-label">${esc(category)}</span>${items.map(p=>`<a href="${prefix}${p.slug}/" ${page?.slug===p.slug?'aria-current="page"':''}>${esc(p.title)}</a>`).join('')}</div>`).join('');
- const sourceLabel=page?(page.candidate?`운영 미적용 후보 ${page.verifiedAt}`:page.history?`배포 확인 ${page.verifiedAt}`:page.noScreenshot?`실행 이미지·소스 ${page.verifiedAt}`:page.slug==='changes'?'문서 이력 기준 2026.10.09':'과거 화면 2026.10.01'):'문서 기준 2026.10.09';
+ const sourceLabel=page?(page.candidate?`운영 미적용 후보 ${page.verifiedAt}`:page.history?`이력 기준 ${page.verifiedAt}`:page.noScreenshot?`실행 이미지·소스 ${page.verifiedAt}`:page.slug==='changes'?`문서 이력 기준 ${documentDate}`:'과거 화면 2026.10.01'):`문서 기준 ${documentDate}`;
  return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(page?.title??'워커 기능별 매뉴얼')} · 워커 매뉴얼</title><meta name="description" content="${esc(page?.description??'실제 워커 화면으로 따라 하는 기능별 사용법')} "><link rel="stylesheet" href="${prefix}manual.css"><script src="${prefix}manual.js" defer></script></head><body><a class="skip" href="#main">본문으로 이동</a><header class="topbar"><a class="brand" href="${prefix}index.html"><span class="brand-mark">W</span>워커 매뉴얼 <span>DreamLabs</span></a><nav class="top-links" aria-label="주요 메뉴"><a href="${prefix}index.html">기능별 사용법</a><a href="${prefix}release-history/">버전별 개선</a><span>${sourceLabel}</span></nav></header><div class="layout"><aside class="sidebar" aria-label="기능별 문서"><span class="sidebar-label">기능별 사용법</span>${nav}<hr><p>실제 워커 화면을 바탕으로 작성했습니다. 각 문서에서 실행 검증 범위를 확인하세요.</p><p>과거 캡처에는 v0.1.0이 표시됐습니다.<br>배포별 개선은 버전별 개선 이력에서 확인하세요.</p></aside><main class="page" id="main"><div class="page-inner">${body}</div></main></div><footer class="footer"><span>DreamLabs · 워커 사용자 매뉴얼</span><span>${sourceLabel}</span></footer><dialog id="screenshot-dialog" class="screenshot-dialog" aria-label="화면 캡처 확대"><div class="dialog-bar"><span data-image-title>화면 캡처</span><button type="button" data-close>닫기</button></div><img alt=""></dialog><span id="copy-status" class="sr-only" role="status"></span></body></html>`;
 }
 
@@ -80,7 +83,7 @@ for(let i=0;i<pages.length;i++){
  const historyPage=p.history||p.slug==='changes';
  const testBlock=`<section id="test-case" class="test-case"><span class="eyebrow">${historyPage?'이력 대조':'따라 해 보는 기능 검사'}</span><h2>${historyPage?'이력과 실제 워커 대조하기':'이 화면을 직접 테스트하기'}</h2><p class="test-scope">${historyPage?'아래는 이력의 적용 범위와 실제 워커를 비교하는 절차입니다.':'아래는 독자가 실행할 검사 절차입니다. 이 페이지에 적힌 기대 결과는 이번 배포에서 통과했다는 뜻이 아닙니다.'}</p><h3>시작 조건</h3><p>${esc(check.setup)}</p><h3>실행 순서</h3><ol>${check.steps.map(step=>`<li>${esc(step)}</li>`).join('')}</ol><h3>통과 기준</h3><p>${esc(check.expected)}</p><h3>남길 증거</h3><p>${esc(check.evidence)}</p><div class="test-result"><strong>판정 기록</strong><span>통과 / 실패 / 차단 / 미실행 중 하나를 고르고 워커·확인 시각을 함께 적으세요.</span></div></section>`;
  const evidenceLabel=p.evidenceLabel??(p.slug==='changes'?'문서 이력 확인':'실제 화면 캡처');
- const verifiedAt=p.verifiedAt??(p.slug==='changes'?'2026.10.09':'2026.10.01');
+ const verifiedAt=p.verifiedAt??(p.slug==='changes'?documentDate:'2026.10.01');
  const imageNote=p.candidate?'이 후보는 운영 미적용이며 실제 화면 캡처 전입니다.':p.history?'이 페이지는 배포별 개선 내역과 확인 범위를 기록합니다.':p.noScreenshot?'최신 화면 캡처는 확인 전입니다.':p.slug==='changes'?'이 페이지는 문서 갱신을 기록합니다.':'2026.10.01 과거 캡처입니다. 최신 화면은 확인 전입니다.';
  const quick=p.quick?`<section class="quickstart" aria-label="이 기능 한눈에 보기"><h2>한눈에 따라하기</h2><div class="quickstart-grid"><div><span>1 · 화면 열기</span><p>${esc(p.quick.where)}</p></div><div><span>2 · 해볼 조작</span><p>${esc(p.quick.do)}</p></div><div><span>3 · 결과 확인</span><p>${esc(p.quick.check)}</p></div></div><p class="quickstart-status">${p.noScreenshot?'화면 미촬영 · 아래 메뉴 설명은 실행 이미지의 소스를 기준으로 작성했습니다.':'아래 실제 화면과 함께 확인하세요.'}</p></section>`:'';
  const mobileToc=`<nav class="mobile-toc" aria-label="이 페이지의 단계"><strong>바로 이동</strong><div>${p.toc.map(([id,label])=>`<a href="#${id}">${esc(label)}</a>`).join('')}<a href="#test-case">직접 테스트</a></div></nav>`;

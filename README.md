@@ -3,12 +3,13 @@
 공개 사용자 매뉴얼을 위한 정적 문서입니다. 2026-10-01 실제 실행·화면 증거와 2026-10-09 실행 이미지·소스에서 확인한 변경을 구분합니다. 내부 운영 문서와 원본 캡처는 공개 에셋과 분리합니다.
 
 - 목표 도메인: `manual.workers.dreamlabs.co.kr`
-- 현재 단계: 안내 문서 27개와 페이지별 재현 검사 27개, GitHub Pages 공개 배포
+- 현재 단계: 안내 문서 28개와 페이지별 재현 검사 28개, GitHub Pages 공개 배포
 - 기존 촬영 기준: 2026-10-01 KST worker00. 이후 UI가 바뀌어 이 캡처를 최신 화면 증거로 사용하지 않습니다.
 - 현재 실행 이미지 확인: 2026-10-09 KST worker0·worker00이 동일 이미지로 정상 실행 중입니다. 정확한 배포 식별자는 내부 검증 문서에서 관리합니다.
 - 최신 탐색·워커 간 요청·스킬 로딩·전체 업데이트·스킬 설치 화면의 직접 캡처와 사용자 클릭 검증은 아직 확보하지 못했습니다. 페이지별로 미촬영을 표시합니다.
 - 제품의 배포별 개선은 `guide/release-history/`, 이 매뉴얼의 수정 내역은 `guide/changes/`에서 구분해 봅니다. 콘솔 표시 `v0.1.0`만으로 확인 배포를 구분하지 않습니다.
 - `guide/candidate-20261009-ui-context/`는 빌드·격리 검사·Registry 등록·서버 사전 배치와 worker0의 업데이트 제안 응답까지 확인된 운영 미적용 후보입니다. 제안은 적용 전 다시 조회해야 하며 후보 내용은 현재 워커 사용법으로 취급하지 않습니다.
+- `guide/candidate-20261010-security-codex/`는 별도의 불변 이미지 후보입니다. Worker 생산 의존성 감사 0건과 Codex 0.162.0의 격리 검사, Registry 등록·서버 사전 배치·worker0 제안 응답을 확인했으며 지정 워커 적용과 화면 수용은 아직 수행되지 않았습니다.
 
 ## 실행
 
@@ -21,7 +22,7 @@ python -m http.server 43817 --bind 127.0.0.1 --directory .
 
 ## 편집
 
-- `scripts/build-sample.mjs`, `scripts/full-guides.mjs`, `scripts/latest-guides.mjs`, `scripts/release-history.mjs`, `scripts/candidate-ui-context.mjs`: 문서 내용과 HTML 생성
+- `scripts/build-sample.mjs`, `scripts/full-guides.mjs`, `scripts/latest-guides.mjs`, `scripts/release-history.mjs`, `scripts/candidate-ui-context.mjs`, `scripts/candidate-security-codex.mjs`: 문서 내용과 HTML 생성
 - `scripts/test-cases.mjs`: 기능별 시작 조건·실행 순서·통과 기준·증거
 - `guide/manual.css`: 공통 화면 구성
 - `guide/manual.js`: 예제 복사, 캡처 확대
