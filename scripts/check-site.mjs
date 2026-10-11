@@ -27,7 +27,7 @@ for (const page of pages) {
     if (relativePage === 'guide/candidate-20261009-ui-context/index.html' && (!html.includes('운영 미적용') || !html.includes('후보 화면 캡처도 미촬영'))) errors.push(`${relativePage}: missing candidate status or screenshot boundary`);
     if (relativePage === 'guide/candidate-20261010-security-codex/index.html' && (!html.includes('worker0 적용 확인') || !html.includes('실제 화면 캡처도 미촬영') || !html.includes('7건'))) errors.push(`${relativePage}: missing deployed edition boundaries`);
     if (relativePage === 'guide/candidate-20261011-context-compat/index.html' && (!html.includes('worker0 적용 확인') || !html.includes('새 화면 캡처도 미촬영') || !html.includes('기본 20초'))) errors.push(`${relativePage}: missing context deployed boundaries`);
-    if (relativePage === 'guide/candidate-20261011-ui-skills/index.html' && (!html.includes('운영 미적용') || !html.includes('UNIFIED_QUEUE_STATE_LOCK_UNCERTAIN') || !html.includes('버튼이 비활성화') || !html.includes('화면 캡처'))) errors.push(`${relativePage}: missing UI/Skills candidate boundaries`);
+    if (relativePage === 'guide/candidate-20261011-ui-skills/index.html' && (!html.includes('운영 미적용') || !html.includes('UNIFIED_QUEUE_STATE_LOCK_UNCERTAIN') || !html.includes('Run Whole Update 버튼이 활성화') || !html.includes('실제 업데이트 버튼은 누르지 않았습니다') || !html.includes('화면 캡처'))) errors.push(`${relativePage}: missing UI/Skills candidate boundaries`);
   }
   const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(x => x[1]));
   for (const [, attribute, value] of html.matchAll(/\b(href|src)="([^"]+)"/g)) {

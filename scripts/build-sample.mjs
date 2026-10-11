@@ -12,7 +12,7 @@ import { uiSkillsDiagnosticsCandidateGuide } from './candidate-ui-skills-diagnos
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.join(root, 'guide');
-const documentDate = '2026.10.11';
+const documentDate = '2026.10.12';
 const esc = text => String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const prompt = `아래 가상 회의 메모를 정리해 주세요.
 제공한 내용만 사용하고 도구 호출, 파일 저장, Wiki 수정, 외부 전송은 하지 마세요.
