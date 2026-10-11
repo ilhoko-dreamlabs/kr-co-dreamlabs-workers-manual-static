@@ -8,6 +8,7 @@ import { releaseHistoryGuide } from './release-history.mjs';
 import { uiContextCandidateGuide } from './candidate-ui-context.mjs';
 import { securityCodexCandidateGuide } from './candidate-security-codex.mjs';
 import { contextCompatCandidateGuide } from './candidate-context-compat.mjs';
+import { uiSkillsDiagnosticsCandidateGuide } from './candidate-ui-skills-diagnostics.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.join(root, 'guide');
@@ -48,6 +49,7 @@ pages.push({slug:'follow-up',title:'같은 세션에서 후속 요청하기',des
 pages.push(...fullGuides(esc));
 pages.push(...latestGuides);
 pages.push(releaseHistoryGuide);
+pages.push(uiSkillsDiagnosticsCandidateGuide);
 pages.push(contextCompatCandidateGuide);
 pages.push(securityCodexCandidateGuide);
 pages.push(uiContextCandidateGuide);
@@ -62,7 +64,7 @@ pages.push({
  <section id="catalog"><h2 class="step-title"><span class="step-number">2</span>공식 카탈로그 확인하기</h2><p><strong>설정 → 스킬</strong>에서 공식 스킬 레지스트리와 사용 가능한 스킬 목록을 엽니다. 관리자 계정에서 <strong>업데이트 확인</strong>을 누르면 현재 게시된 목록과 버전·호환성·설치 상태를 다시 확인합니다. 확인만으로 스킬이 다운로드되거나 활성화되지는 않습니다. 목록의 설명과 설치된 버전을 함께 읽으세요.</p></section>
  <section id="install"><h2 class="step-title"><span class="step-number">3</span>한 가지 스킬을 선택해 설치하기</h2><p>필요한 스킬 행의 <strong>설치</strong> 또는 <strong>업데이트</strong>를 선택합니다. 워커는 최신 카탈로그를 다시 확인하고 설치 미리보기 검사를 거친 뒤, 선택한 스킬 ID와 버전이 적힌 확인 창을 엽니다. 확인 후 완료 알림과 목록의 설치 상태를 다시 확인하세요. 취소하면 기존 스킬은 바뀌지 않아야 합니다. 관리자만 이 작업을 할 수 있습니다.</p></section>
  <section id="enable"><h2 class="step-title"><span class="step-number">4</span>실제 사용을 따로 활성화하기</h2><p><strong>설치 완료</strong>는 스킬 파일과 설치 기록이 있다는 뜻입니다. <strong>스킬 주입 정책</strong>에서 해당 스킬을 활성화하고, 새 요청에서 사용하는 어댑터에 투영되는지 확인해야 실제 사용 여부를 판단할 수 있습니다. 스킬 목록에 보이는 것, 활성화된 것, 새 요청에 적용된 것은 서로 다른 상태입니다.</p></section>
- <section id="status"><h2 class="step-title"><span class="step-number">5</span>상태와 오류 읽기</h2><p>공식 카탈로그에는 <strong>설치 안 됨</strong>, <strong>설치됨 · 활성화는 별도</strong>, <strong>설치됨 · 주입 불가</strong>, <strong>업데이트 가능</strong>, <strong>호환되지 않음</strong> 등이 표시될 수 있습니다. 주입 불가는 설치 기록과 실제 스킬 목록의 대조에 문제가 있다는 뜻입니다. 페이지 새로고침만으로 해결됐다고 판단하지 말고 차단 코드와 선택한 버전을 기록하세요. 활성화 여부는 별도의 <strong>주입 정책</strong>에서 확인하고, 새 요청에 실제 적용됐는지는 실행 결과로 확인합니다.</p></section>
+ <section id="status"><h2 class="step-title"><span class="step-number">5</span>상태와 오류 읽기</h2><p>공식 카탈로그에는 <strong>설치 안 됨</strong>, <strong>설치됨 · 활성화는 별도</strong>, <strong>설치됨 · 주입 불가</strong>, <strong>업데이트 가능</strong>, <strong>호환되지 않음</strong> 등이 표시될 수 있습니다. 주입 불가는 설치 기록과 실제 스킬 목록의 대조에 문제가 있다는 뜻입니다. 페이지 새로고침만으로 해결됐다고 판단하지 말고 차단 코드와 선택한 버전을 기록하세요. 활성화 여부는 별도의 <strong>주입 정책</strong>에서 확인하고, 새 요청에 실제 적용됐는지는 실행 결과로 확인합니다.</p><div class="note"><strong>후속 이미지 후보의 진단 개선</strong><a href="../candidate-20261011-ui-skills/">UI·스킬 설치 진단 후보</a>에는 실패 단계와 마지막 오류 표시가 보완돼 있습니다. 현재 worker0에는 아직 적용되지 않았으므로 이 새 진단이 보이지 않아도 기존 화면의 결함으로 판정하지 않습니다.</div></section>
  <section id="verify"><h2 class="step-title"><span class="step-number">6</span>계획대로 구현됐는지 확인하기</h2><p>계획된 순서는 <strong>목록 확인 → 한 스킬 선택 → 미리보기 → 명시적 확인 → 설치 결과 재조회 → 별도 활성화 → 새 요청에서 적용 확인</strong>입니다. 카탈로그의 다른 스킬까지 자동 설치되거나, 설치만으로 자동 활성화되면 계획과 다릅니다. 기능이 배포된 워커의 이미지와 건강 상태는 확인했지만, 기존 설치 스킬의 주입 목록 복구 및 새 요청 적용은 아직 검증 전입니다.</p></section>`
 });
 

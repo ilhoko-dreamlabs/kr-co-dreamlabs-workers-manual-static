@@ -3,14 +3,15 @@
 공개 사용자 매뉴얼을 위한 정적 문서입니다. 2026-10-01 실제 실행·화면 증거와 2026-10-09~11 이미지·소스에서 확인한 변경을 구분합니다. 내부 운영 문서와 원본 캡처는 공개 에셋과 분리합니다.
 
 - 목표 도메인: `manual.workers.dreamlabs.co.kr`
-- 현재 단계: 안내 문서 29개와 페이지별 재현 검사 29개, GitHub Pages 공개 배포
+- 현재 단계: 안내 문서 30개와 페이지별 재현 검사 30개, GitHub Pages 공개 배포
 - 기존 촬영 기준: 2026-10-01 KST worker00. 이후 UI가 바뀌어 이 캡처를 최신 화면 증거로 사용하지 않습니다.
-- 현재 실행 이미지 확인: 2026-10-11 KST worker0에서 보안·Codex 이미지와 건강 상태를 확인했습니다. worker00의 마지막 확인은 2026-10-09 KST이며 그 뒤 적용 상태는 새로 판정하지 않습니다. 정확한 식별자는 내부 검증 문서에서 관리합니다.
+- 현재 실행 이미지 확인: 2026-10-11 KST worker0에서 대화 맥락 압축·호환 이미지와 건강 상태를 확인했습니다. worker00의 마지막 확인은 2026-10-09 KST이며 그 뒤 적용 상태는 새로 판정하지 않습니다. 정확한 식별자는 내부 검증 문서에서 관리합니다.
 - 최신 탐색·워커 간 요청·스킬 로딩·전체 업데이트·스킬 설치 화면의 직접 캡처와 사용자 클릭 검증은 아직 확보하지 못했습니다. 페이지별로 미촬영을 표시합니다.
 - 제품의 배포별 개선은 `guide/release-history/`, 이 매뉴얼의 수정 내역은 `guide/changes/`에서 구분해 봅니다. 콘솔 표시 `v0.1.0`만으로 확인 배포를 구분하지 않습니다.
 - `guide/candidate-20261009-ui-context/`는 빌드·격리 검사·Registry 등록·서버 사전 배치와 worker0의 업데이트 제안 응답까지 확인된 운영 미적용 후보입니다. 제안은 적용 전 다시 조회해야 하며 후보 내용은 현재 워커 사용법으로 취급하지 않습니다.
-- `guide/candidate-20261010-security-codex/`는 기존 경로를 유지한 이미지 상세 페이지입니다. Worker 생산 의존성 감사 0건과 Codex 0.162.0을 확인했고 이후 worker0 적용·건강 상태가 확인됐습니다. 실제 기능과 화면 수용은 미완료입니다.
-- `guide/candidate-20261011-context-compat/`는 긴 대화 맥락 압축·이전 버전 호환을 보완한 새 불변 후보입니다. 빌드·Registry·서버 배치·worker0 제안과 로그인 콘솔의 실행 준비 상태까지 확인됐으나 실제 적용과 새 이미지 화면 수용은 미완료입니다.
+- `guide/candidate-20261010-security-codex/`는 기존 경로를 유지한 과거 worker0 적용 이미지 상세 페이지입니다. Worker 생산 의존성 감사 0건과 Codex 0.162.0을 확인했습니다. 이후 worker0은 다음 이미지로 변경됐고 이 이미지의 실제 기능·화면 수용은 미완료입니다.
+- `guide/candidate-20261011-context-compat/`는 긴 대화 맥락 압축·이전 버전 호환을 보완한 이미지입니다. 빌드·Registry·서버 배치·제안 이후 worker0의 실행 이미지·건강 상태를 확인했으나 기능과 새 화면 수용은 미완료입니다. 경로의 candidate는 최초 게시 당시 이름입니다.
+- `guide/candidate-20261011-ui-skills/`는 UI 상태·탐색 및 스킬 설치 실패 진단을 보완한 새 불변 후보입니다. 이미지 빌드·검사, Registry 등록·서버 배치·worker0 제안 수신을 확인했습니다. 전체 업데이트 실행은 현재 대기열 잠금 불확실 상태로 차단돼 있으며 새 이미지는 적용되지 않았습니다.
 
 ## 실행
 
@@ -23,7 +24,7 @@ python -m http.server 43817 --bind 127.0.0.1 --directory .
 
 ## 편집
 
-- `scripts/build-sample.mjs`, `scripts/full-guides.mjs`, `scripts/latest-guides.mjs`, `scripts/release-history.mjs`, `scripts/candidate-ui-context.mjs`, `scripts/candidate-security-codex.mjs`, `scripts/candidate-context-compat.mjs`: 문서 내용과 HTML 생성
+- `scripts/build-sample.mjs`, `scripts/full-guides.mjs`, `scripts/latest-guides.mjs`, `scripts/release-history.mjs`, `scripts/candidate-ui-context.mjs`, `scripts/candidate-security-codex.mjs`, `scripts/candidate-context-compat.mjs`, `scripts/candidate-ui-skills-diagnostics.mjs`: 문서 내용과 HTML 생성
 - `scripts/test-cases.mjs`: 기능별 시작 조건·실행 순서·통과 기준·증거
 - `guide/manual.css`: 공통 화면 구성
 - `guide/manual.js`: 예제 복사, 캡처 확대

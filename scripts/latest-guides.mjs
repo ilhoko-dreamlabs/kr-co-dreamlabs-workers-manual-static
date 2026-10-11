@@ -45,12 +45,12 @@ export const latestGuides = [
   {
     slug:'whole-update', title:'워커 전체 업데이트 상태 읽기', category:'설정',
     description:'관리자 화면에서 할당·차단 사유·유지보수 단계와 보존 요청 상태를 확인합니다.',
-    verifiedAt:'2026.10.09', evidenceLabel:'실행 이미지·소스 확인 / 화면 미촬영', noScreenshot:true,
+    verifiedAt:'2026.10.11', evidenceLabel:'worker0 업데이트 차단 상태 확인 / 새 화면 미촬영', noScreenshot:true,
     quick:{where:'대시보드 → 업데이트 열기 또는 설정 → 런타임 → 전체 업데이트',do:'현재·대상 할당과 차단 사유를 읽기 전용으로 확인',check:'단계와 보존 요청 상태를 재조회해 기록'},
     toc:[['scope','접근과 적용 범위'],['inspect','할당 확인'],['run','수동 업데이트'],['maintenance','유지보수 중'],['finish','완료·복구 판단']],
     body:()=>`
       <section id="scope"><h2>접근과 적용 범위</h2><p>대시보드의 <strong>업데이트 열기</strong> 또는 <strong>설정 → 런타임 → 전체 업데이트</strong>에서 현재 릴리스, 대상 할당, 차단 사유와 단계를 읽습니다. 업데이트 적용과 자동 정책 변경은 관리자·업데이트 운영자 권한의 운영 작업입니다. 이 페이지의 재현 검사는 우선 읽기 전용으로 진행합니다.</p>${scope}</section>
-      <section id="inspect"><h2>현재·대상 할당 확인하기</h2><p><strong>할당 대기</strong>, <strong>할당 수신</strong>, <strong>확인 필요</strong>, <strong>만료됨</strong>을 구분합니다. 버튼이 비활성인 이유를 읽고 현재와 대상 릴리스가 예상한 한 쌍인지 확인합니다. 자동 할당은 콘솔에서 수동 실행할 수 없습니다.</p></section>
+      <section id="inspect"><h2>현재·대상 할당 확인하기</h2><p><strong>할당 대기</strong>, <strong>할당 수신</strong>, <strong>확인 필요</strong>, <strong>만료됨</strong>을 구분합니다. 버튼이 비활성인 이유를 읽고 현재와 대상 릴리스가 예상한 한 쌍인지 확인합니다. 자동 할당은 콘솔에서 수동 실행할 수 없습니다.</p><div class="note"><strong>2026년 10월 11일 worker0 확인 사례</strong>새 이미지의 대상 할당은 표시됐지만 <code>UNIFIED_QUEUE_STATE_LOCK_UNCERTAIN</code> 때문에 실행 버튼이 비활성화돼 있었습니다. Refresh 후에도 같았습니다. 건강 상태 정상·진행 작업 0건만으로 잠금이 안전하다고 판단하거나 잠금 파일을 임의로 지우지 마세요. <a href="../candidate-20261011-ui-skills/">해당 이미지 후보와 남은 검사</a>를 확인하세요.</div></section>
       <section id="run"><h2>수동 업데이트 요청하기</h2><p>운영 검증과 대상 할당 확인이 끝난 경우에만 <strong>전체 업데이트 실행</strong>을 사용합니다. 확인 창은 한 할당을 외부 실행기에 요청하며 새 요청은 보존 대기열에 들어가고 설정 변경이 잠길 수 있음을 알립니다. 버튼 클릭 직후 접수 메시지는 업데이트 성공을 뜻하지 않습니다.</p></section>
       <section id="maintenance"><h2>유지보수 중 화면 읽기</h2><p><strong>외부 실행 요청됨 → 업데이트 적용 중 → 업데이트 검증 중</strong> 단계를 따라갑니다. 연결이 잠시 끊기면 콘솔을 새로고침하거나 다시 로그인해 현재 단계를 재조회합니다. 유지보수 중 변경 작업과 로그아웃이 제한될 수 있습니다.</p></section>
       <section id="finish"><h2>완료와 보존 요청 확인하기</h2><p><strong>업데이트 완료</strong> 이후 새 릴리스와 Worker 건강 상태를 확인합니다. 보존 요청이 남아 있다면 검증 완료 뒤 <strong>보존 요청 재개</strong> 가능 여부를 별도로 봅니다. 실패·차단·롤백 단계라면 새 업데이트를 연속 실행하지 말고 운영 기록의 사유와 기존 요청 상태를 확인합니다.</p></section>`
