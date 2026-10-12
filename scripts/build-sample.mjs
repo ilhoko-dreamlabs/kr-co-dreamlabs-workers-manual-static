@@ -9,10 +9,11 @@ import { uiContextCandidateGuide } from './candidate-ui-context.mjs';
 import { securityCodexCandidateGuide } from './candidate-security-codex.mjs';
 import { contextCompatCandidateGuide } from './candidate-context-compat.mjs';
 import { uiSkillsDiagnosticsCandidateGuide } from './candidate-ui-skills-diagnostics.mjs';
+import { systemEventsSkillAutoCandidateGuide } from './candidate-system-events-skill-auto-update.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.join(root, 'guide');
-const documentDate = '2026.10.12';
+const documentDate = '2026.10.13';
 const esc = text => String(text).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const prompt = `아래 가상 회의 메모를 정리해 주세요.
 제공한 내용만 사용하고 도구 호출, 파일 저장, Wiki 수정, 외부 전송은 하지 마세요.
@@ -49,6 +50,7 @@ pages.push({slug:'follow-up',title:'같은 세션에서 후속 요청하기',des
 pages.push(...fullGuides(esc));
 pages.push(...latestGuides);
 pages.push(releaseHistoryGuide);
+pages.push(systemEventsSkillAutoCandidateGuide);
 pages.push(uiSkillsDiagnosticsCandidateGuide);
 pages.push(contextCompatCandidateGuide);
 pages.push(securityCodexCandidateGuide);
