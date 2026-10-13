@@ -1,11 +1,11 @@
 # 워커 사용자 매뉴얼
 
-공개 사용자 매뉴얼을 위한 정적 문서입니다. 2026-10-01 실제 실행·화면 증거와 2026-10-09~13 이미지·운영 상태에서 확인한 변경을 구분합니다. 내부 운영 문서와 원본 캡처는 공개 에셋과 분리합니다.
+공개 사용자 매뉴얼을 위한 정적 문서입니다. 2026-10-01 실제 실행·화면 증거와 2026-10-09~14 이미지·운영 상태에서 확인한 변경을 구분합니다. 내부 운영 문서와 원본 캡처는 공개 에셋과 분리합니다.
 
 - 목표 도메인: `manual.workers.dreamlabs.co.kr`
-- 현재 단계: 안내 문서 33개와 페이지별 재현 검사 33개, GitHub Pages 공개 배포
+- 현재 단계: 안내 문서 34개와 페이지별 재현 검사 34개, GitHub Pages 공개 배포
 - 기존 촬영 기준: 2026-10-01 KST worker00. 이후 UI가 바뀌어 이 캡처를 최신 화면 증거로 사용하지 않습니다.
-- 현재 실행 이미지 확인: 2026-10-13 21:00 KST 읽기에서 worker0·worker00이 같은 Connector 기록 호환성 이미지로 건강하게 실행 중인 것을 확인했습니다. worker00의 보존 데이터·실제 GitLab 조회는 별도 검사로 확인했고, worker0은 실행 이미지·건강 상태만 확인했습니다. 이보다 앞선 시스템 이벤트 이미지의 worker0 적용도 과거 기록으로 보존합니다. 정확한 식별자는 내부 검증 문서에서 관리합니다.
+- 실행 이미지 확인 범위: 2026-10-13 21:00 KST에는 worker0·worker00이 Connector 기록 호환성 이미지로 건강하게 실행 중이었습니다. 2026-10-14 07:57 KST 읽기에서는 worker0·worker1이 RRA·진행·동시 실행 이미지로 건강하게 실행 중이었고 worker00은 Connector 이미지였습니다. 기능 결과와 보존 데이터는 워커별로 별도 판정합니다. 정확한 식별자는 내부 검증 문서에서 관리합니다.
 - 최신 탐색·워커 간 요청·스킬 로딩·전체 업데이트·스킬 설치 화면의 직접 캡처와 사용자 클릭 검증은 아직 확보하지 못했습니다. 페이지별로 미촬영을 표시합니다.
 - 제품의 배포별 개선은 `guide/release-history/`, 이 매뉴얼의 수정 내역은 `guide/changes/`에서 구분해 봅니다. 콘솔 표시 `v0.1.0`만으로 확인 배포를 구분하지 않습니다.
 - `guide/candidate-20261009-ui-context/`는 빌드·격리 검사·Registry 등록·서버 사전 배치와 worker0의 업데이트 제안 응답까지 확인된 운영 미적용 후보입니다. 제안은 적용 전 다시 조회해야 하며 후보 내용은 현재 워커 사용법으로 취급하지 않습니다.
@@ -14,7 +14,8 @@
 - `guide/candidate-20261011-ui-skills/`는 UI 상태·탐색 및 스킬 설치 실패 진단을 보완한 과거 worker0 적용 이미지입니다. 2026-10-13 08:03 KST 실행·건강 상태를 확인했으며 이후 다음 이미지로 변경됐습니다. 실제 화면·기능 수용은 미완료입니다.
 - `guide/candidate-20261013-system-events-skill-auto-update/`는 시스템 이벤트와 설치 스킬 자동업데이트를 추가한 과거 worker0 적용 이미지입니다. 2026-10-13 08:26 KST 당시 실행·건강 상태와 관리자 화면의 handler 준비·수신 꺼짐·발행자 0명을 확인했습니다. 이후 worker0은 Connector 호환성 이미지로 변경됐습니다. 신뢰 프록시 미설정으로 외부 HTTPS 호출은 거부되며 CI 구현·실제 이벤트 전달·스킬 자동업데이트·새 화면 촬영은 미완료입니다.
 - `guide/candidate-20261013-connector-ledger-compat/`는 기존 Connector 효과 기록의 부가 메타데이터 호환성을 보완한 별도 이미지입니다. worker00에 정확한 이미지 적용·건강·보존 검사 13건과 실제 2,000건 읽기, 이후 GitLab Connector 성공 기록을 확인했습니다. 21:00 KST 별도 조회에서 worker0도 같은 이미지로 건강하게 실행 중이었지만 그 워커의 보존 데이터·기능 결과는 확인하지 않았습니다. CI 구성 최종 결과·이벤트 전송도 별도 확인이 필요합니다. UI 변경은 없습니다. 경로의 candidate는 최초 게시 당시 이름입니다.
-- `guide/candidate-20261013-rra-progress-capacity/`는 RRA 응답에서 일반 Chat 초안으로 이어가기, 공개 진행 상태의 재접속 복구, 관리자 Adapter 상한과 사이드바 이미지 버전을 보완한 새 이미지 후보입니다. 불변 이미지 빌드·격리 검사, 원격 Registry 등록·서버 이미지 배치와 worker0 콘솔의 할당 수신·실행 버튼 활성을 확인했습니다. worker0 자동 이미지 업데이트는 사용자 승인에 따라 꺼졌고 실제 업데이트·재시작·새 기능 검사는 아직 없습니다. 준비 화면은 이전 실행 이미지의 관리자 UI이며 새 버전 기능 캡처는 없습니다.
+- `guide/candidate-20261013-rra-progress-capacity/`는 RRA 응답에서 일반 Chat 초안으로 이어가기, 공개 진행 상태의 재접속 복구, 관리자 Adapter 상한과 사이드바 이미지 버전을 보완한 이미지입니다. 10월 13일에는 Registry·서버 배치와 worker0 실행 준비까지만 확인했으며, 10월 14일 worker0·worker1의 정확한 실행 이미지·건강 상태를 별도 확인했습니다. RRA·진행·동시 실행의 실제 결과와 새 기능 캡처는 아직 없습니다. 경로의 candidate는 최초 게시 당시 이름입니다.
+- `guide/candidate-20261014-claude-subscription-auth/`는 Claude 구독 파일 로그인에서 만료된 액세스 토큰의 갱신 기회를 보존하고, 구독 OAuth 토큰과 종량제 자격 증명의 경계를 바로잡은 이미지입니다. 불변 이미지 빌드·격리 인증 검사와 Registry·서버 배치, claude-worker의 정확한 실행 이미지·정상 건강·인증 준비 상태를 확인했습니다. 실제 모델 요청·갱신 성공과 상태 파일 해시 차이는 기동 정규화로 확인됐고 설정·마운트는 유지됐습니다. UI 배치 변경은 없고 새 운영 인증 캡처는 없습니다. 경로의 candidate는 최초 게시 당시 이름입니다.
 
 ## 실행
 
@@ -27,7 +28,7 @@ python -m http.server 43817 --bind 127.0.0.1 --directory .
 
 ## 편집
 
-- `scripts/build-sample.mjs`, `scripts/full-guides.mjs`, `scripts/latest-guides.mjs`, `scripts/release-history.mjs`, `scripts/candidate-ui-context.mjs`, `scripts/candidate-security-codex.mjs`, `scripts/candidate-context-compat.mjs`, `scripts/candidate-ui-skills-diagnostics.mjs`, `scripts/candidate-system-events-skill-auto-update.mjs`, `scripts/candidate-connector-ledger-compat.mjs`: 문서 내용과 HTML 생성
+- `scripts/build-sample.mjs`, `scripts/full-guides.mjs`, `scripts/latest-guides.mjs`, `scripts/release-history.mjs`, `scripts/candidate-*.mjs`: 문서 내용과 HTML 생성
 - `scripts/test-cases.mjs`: 기능별 시작 조건·실행 순서·통과 기준·증거
 - `guide/manual.css`: 공통 화면 구성
 - `guide/manual.js`: 예제 복사, 캡처 확대

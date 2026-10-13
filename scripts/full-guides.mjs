@@ -133,6 +133,8 @@ const guides = [
   {
     slug:'changes', category:'버전', title:'매뉴얼 갱신 이력', description:'이 사용설명서에 추가·수정한 내용과 화면 증거의 날짜를 확인합니다.',
     sections:[
+      {id:'rra-progress-runtime',title:'2026.10.14 · RRA·진행·동시 실행 이미지 실행 상태 갱신',text:'10월 14일 읽기에서 worker0·worker1의 정확한 실행 이미지와 정상 건강 상태를 확인해, 종전의 worker0 준비·미적용 표기를 바로잡았다. RRA 연결·진행 재접속·동시 실행 상한 저장의 실제 기능 결과와 새 화면 캡처는 미검증으로 남겼다.'},
+      {id:'claude-subscription-auth-candidate',title:'2026.10.14 · Claude 구독 인증 보정 이미지 적용 상태 갱신',text:'이전 RRA·진행·동시 실행 이미지 소스를 기준으로 Claude 구독 파일 로그인 만료 판정, 네이티브 갱신 기회, 구독 OAuth 토큰과 종량제 자격 증명 분리·--bare 거부를 별도 버전 페이지와 제품 이력에 기록했다. 불변 이미지 빌드·격리 인증 검사, Registry·서버 배치와 claude-worker의 정확한 실행 이미지·정상 건강·인증 준비 상태를 확인했다. 실제 모델 요청·갱신 성공, 상태 파일의 기동 정규화와 설정·마운트 보존을 대조했으며 새 운영 인증 화면 캡처는 미확보다. UI 배치 변경은 없다.'},
       {id:'rra-progress-ready',title:'2026.10.13 · RRA·진행·동시 실행 후보의 공급 상태 갱신',text:'같은 불변 이미지의 Registry 등록, 서버 이미지 단독 배치와 worker0의 할당 수신·실행 버튼 활성을 확인했다. worker0 자동 이미지 업데이트는 사용자 승인으로 꺼졌고 수동 업데이트는 실행하지 않았다. 준비 화면은 이전 실행 이미지의 관리자 화면이며 새 후보 기능 캡처·운영 검사는 미완료다.'},
       {id:'rra-progress-local-candidate',title:'2026.10.13 · RRA·진행·동시 실행 로컬 후보 추가',text:'앞선 Connector 이미지와 다른 불변 로컬 이미지의 RRA→일반 Chat 초안 연결, 공개 진행 상태 재접속, 관리자 Adapter 동시 실행 상한과 사이드바 이미지 버전을 별도 페이지에 기록했다. 빌드·격리 검사만 통과했고 Registry·서버 배치·제안·워커 적용 및 새 화면 캡처는 없다. 같은 날 worker0도 앞선 Connector 이미지로 실행 중인 후속 읽기를 기존 이력에 반영했다.'},
       {id:'connector-ledger-deployed',title:'2026.10.13 · Connector 복구 이미지의 worker00 적용 확인',text:'같은 불변 이미지가 worker00에 1회 적용됐고 정확한 실행 이미지·건강·보존 검사 13건과 실제 기록 2,000건 읽기를 확인했다. 별도 진단에서 실제 GitLab Connector 성공 기록을 확인했지만 CI 구성 작업은 진행 중이며 이벤트 전송은 미확인이다. UI 변경이 없어 새 화면 캡처는 만들지 않았다.'},
