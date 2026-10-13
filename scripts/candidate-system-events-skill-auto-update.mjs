@@ -17,6 +17,7 @@ export const systemEventsSkillAutoCandidateGuide = {
   verifiedAt: '2026.10.13', evidenceLabel: 'worker0 실행 이미지·건강 상태 확인 / 기능 수용 전', history: true, deployed: true,
   toc: [['state','worker0 적용 상태'],['events','시스템 이벤트'],['settings','관리자 설정과 결과'],['skill-auto','설치 스킬 자동업데이트'],['other','함께 포함된 개선'],['checks','확인된 검사와 제한'],['acceptance','운영 재현 검사'],['captures','화면 캡처 계획']],
   body: () => `<div class="note capture-warning"><strong>worker0 적용 확인 · 기능 수용 전</strong>2026년 10월 13일 08:26(KST) 이후 독립 읽기에서 worker0이 이 정확한 이미지로 실행 중이며 건강 상태가 정상임을 확인했습니다. 콘솔에는 업데이트 성공이 표시됐습니다. 관리자 화면에서 시스템 이벤트 handler는 준비 상태지만 수신은 꺼져 있고 발행자는 0명입니다. <strong>이미지 적용과 이벤트 전달·스킬 자동업데이트의 운영 수용은 별개</strong>입니다.</div>
+    <div class="note"><strong>worker00 후속 상태</strong>이 페이지 아래의 Connector 기록 오류는 이전 CI 요청의 결과입니다. 이후 <a href="../candidate-20261013-connector-ledger-compat/">별도 호환성 이미지</a>가 worker00에 적용돼 실제 GitLab Connector 성공 기록을 확인했습니다. CI 구성 작업은 진행 중이며 이벤트 수신·전달은 아직 활성화하거나 확인하지 않았습니다.</div>
     <section id="state"><h2>이미지와 적용 상태</h2><p>이 항목의 날짜는 정식 제품 버전 번호가 아닙니다. 앞선 <a href="../candidate-20261011-ui-skills/">UI·스킬 설치 진단 이미지</a>의 소스에서 이어진 별도 이미지이며, 이 페이지에는 새로 추가되거나 보완된 범위만 기록합니다. 콘솔의 <code>v0.1.0</code>만으로 이미지를 구별하지 말고 운영 담당자가 정확한 실행 이미지와 워커 이름을 대조해야 합니다. 내부 이미지 식별자는 비공개 배포 기록에 보관합니다.</p><div class="release-stage-grid">
       <div><strong>이미지 빌드·격리 검사</strong><span>${systemEventsSkillAutoCandidate.status.build}</span></div>
       <div><strong>Registry 등록</strong><span>${systemEventsSkillAutoCandidate.status.registry}</span></div>

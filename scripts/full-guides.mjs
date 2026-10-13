@@ -133,6 +133,7 @@ const guides = [
   {
     slug:'changes', category:'버전', title:'매뉴얼 갱신 이력', description:'이 사용설명서에 추가·수정한 내용과 화면 증거의 날짜를 확인합니다.',
     sections:[
+      {id:'connector-ledger-deployed',title:'2026.10.13 · Connector 복구 이미지의 worker00 적용 확인',text:'같은 불변 이미지가 worker00에 1회 적용됐고 정확한 실행 이미지·건강·보존 검사 13건과 실제 기록 2,000건 읽기를 확인했다. 별도 진단에서 실제 GitLab Connector 성공 기록을 확인했지만 CI 구성 작업은 진행 중이며 이벤트 전송은 미확인이다. UI 변경이 없어 새 화면 캡처는 만들지 않았다.'},
       {id:'connector-ledger-ready',title:'2026.10.13 · Connector 복구 후보의 공급 상태 갱신',text:'같은 불변 이미지의 원격 Registry 등록, 서버 이미지 단독 배치와 worker00 대상 제안을 확인했다. worker00은 작업 실행 중이라 업데이트가 제출되지 않았고 실제 GitLab 조회 복구·CI 구현은 여전히 미완료다.'},
       {id:'connector-ledger-compat',title:'2026.10.13 · Connector 기록 호환성 복구 후보 추가',text:'보존된 Connector 효과 기록의 부가 메타데이터를 안전하게 읽는 별도 이미지 후보를 제품 이력과 버전 페이지에 추가했다. 로컬 빌드·격리 검사와 worker00 실제 기록 2,000건의 읽기 전용 검증은 확인됐지만, worker00 적용·실제 GitLab 조회 복구·CI 구현은 미확인이다. Console UI 변경은 없다.'},
       {id:'system-events-deployed',title:'2026.10.13 · 시스템 이벤트 이미지의 worker0 적용 상태 갱신',text:'같은 불변 이미지가 worker0에서 실행 중이고 건강 상태가 정상이며 콘솔 업데이트 성공을 확인했다. 관리자 System events의 handler는 준비됐지만 수신은 꺼져 있고 발행자는 0명이다. 신뢰 프록시 미설정으로 외부 HTTPS 확인은 거부되며 CI 구현·실제 이벤트 전달·스킬 자동업데이트 수용은 미완료다. worker00 재요청은 실행됐으나 Connector 기록 오류로 CI 구현이 차단됐다. 새 공개 화면 캡처는 미확보다.'},

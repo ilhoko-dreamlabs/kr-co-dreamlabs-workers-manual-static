@@ -1,32 +1,32 @@
 // Public image-edition copy. Exact source, image digests and retained-state evidence stay private.
 export const connectorLedgerCompatCandidate = {
   slug: 'candidate-20261013-connector-ledger-compat',
-  label: '2026.10.13 Connector 기록 호환성 복구 후보',
+  label: '2026.10.13 Connector 기록 호환성 복구 이미지',
   status: {
     build: '완료 · 로컬 불변 이미지·격리 검사 통과',
     registry: '등록 완료 · 원격 이미지 식별 재검증',
     prestage: '완료 · 서버 이미지 단독 배치·기존 컨테이너 불변',
-    offer: 'worker00 대상 사용 가능 · 실행 중 작업으로 보류',
-    apply: '미진행'
+    offer: 'worker00 대상 · 대기 창에서 1회 실행',
+    apply: 'worker00 적용·건강·보존 기록 확인'
   }
 };
 
 export const connectorLedgerCompatCandidateGuide = {
   slug: connectorLedgerCompatCandidate.slug, title: connectorLedgerCompatCandidate.label, category: '버전',
-  description: '기존 Connector 효과 기록의 추가 메타데이터를 안전하게 읽도록 보완한 별도 이미지의 공급 상태와 worker00 적용 전 검사 기준입니다.',
-  verifiedAt: '2026.10.13', evidenceLabel: '이미지 공급·worker00 대상 제안 확인 / 운영 미적용', history: true, candidate: true,
-  toc: [['state','이미지와 적용 상태'],['problem','무엇이 막혔나'],['behavior','복구 범위와 보호 규칙'],['checks','확인된 검사'],['acceptance','worker00 적용 후 검사'],['captures','화면 증거 범위']],
-  body: () => `<div class="note capture-warning"><strong>이미지 공급·제안 완료 · worker00 미적용</strong>2026년 10월 13일 이전 시스템 이벤트 이미지와 다른 불변 이미지를 만들고 원격 Registry 등록·서버 이미지 단독 배치와 worker00 대상 제안을 확인했습니다. worker00에는 진행 중인 작업이 있어 실제 업데이트를 제출하지 않았습니다. 따라서 운영 Connector 조회 복구와 CI 구현은 아직 확인되지 않았고, worker0을 비롯한 다른 워커의 적용 상태도 이 이미지로 변경된 것으로 표시하지 않습니다.</div>
+  description: '기존 Connector 효과 기록을 안전하게 읽도록 보완한 이미지의 worker00 적용, 실제 GitLab 조회와 남은 CI 검사를 구분합니다.',
+  verifiedAt: '2026.10.13', evidenceLabel: 'worker00 적용·건강·기록 보존·GitLab 조회 확인 / CI 진행 중', history: true, deployed: true, deployedWorker: 'worker00',
+  toc: [['state','이미지와 적용 상태'],['problem','무엇이 막혔나'],['behavior','복구 범위와 보호 규칙'],['checks','확인된 검사'],['acceptance','수용 결과와 남은 검사'],['captures','화면 증거 범위']],
+  body: () => `<div class="note capture-warning"><strong>worker00 적용 확인 · CI 수용 전</strong>2026년 10월 13일 11:49(KST) 대기 창에서 worker00에 이 정확한 이미지를 한 번 적용했습니다. 건강 상태와 보존 파일·설정을 확인했고, 새 효과 기록 읽기 방식으로 실제 2,000건을 읽었습니다. 별도 경로 탐색 후 실제 GitLab Connector 호출의 성공 기록도 확인했습니다. <strong>CI 구성 작업은 진행 중이며 이벤트 전송 성공으로 판정하지 않습니다.</strong> worker0을 비롯한 다른 워커에 이 이미지를 적용했다는 근거는 없습니다.</div>
     <section id="state"><h2>이미지와 적용 상태</h2><p>날짜는 정식 제품 버전 번호가 아닙니다. 이 이미지는 <a href="../candidate-20261013-system-events-skill-auto-update/">시스템 이벤트·설치 스킬 자동업데이트 이미지</a>의 다음 소스에서 만들었고, 이번 항목에는 Connector 기록 읽기 호환성 수정만 기록합니다. 콘솔의 <code>v0.1.0</code>으로 두 이미지를 구별할 수 없으므로 정확한 이미지 식별은 비공개 배포 기록에서 대조합니다.</p><div class="release-stage-grid">
       <div><strong>이미지 빌드·격리 검사</strong><span>${connectorLedgerCompatCandidate.status.build}</span></div>
       <div><strong>Registry 등록</strong><span>${connectorLedgerCompatCandidate.status.registry}</span></div>
       <div><strong>서버 사전 배치</strong><span>${connectorLedgerCompatCandidate.status.prestage}</span></div>
       <div><strong>worker00 업데이트 제안</strong><span>${connectorLedgerCompatCandidate.status.offer}</span></div>
       <div><strong>worker00 실제 적용</strong><span>${connectorLedgerCompatCandidate.status.apply}</span></div>
-    </div><p>2026년 10월 13일 09:17(KST) 서버 읽기에서 이 이미지의 원격·서버 식별 일치와 이미지 내려받기 HTTP 200을 확인했습니다. 기존 13개 컨테이너의 실행 이미지와 보호 설정은 바뀌지 않았습니다. worker00은 직전 이미지로 healthy였지만 이후 조회에서도 작업 1~2건이 계속 실행 중이었고, Manager에는 새 대상이 사용 가능으로 표시됐습니다. 업데이트 요청은 제출되지 않았습니다. 실행 작업이 끝난 뒤 건강 상태·대기열·대상 할당을 다시 확인해야 합니다. worker0에서 확인된 실행 이미지는 앞선 시스템 이벤트 이미지입니다. 이 복구 이미지는 worker00에만 적용하도록 범위가 정해졌으며, 적용·건강 상태와 실제 Connector 결과는 별도 확인이 필요합니다.</p></section>
+    </div><p>09:17(KST)에는 원격·서버 이미지가 일치하고 worker00 업데이트 제안이 준비된 상태였습니다. 이후 작업이 없는 대기 창을 새로 확인하고 11:49(KST) worker00에만 Manager 업데이트를 1회 실행했습니다. 정확한 실행 이미지가 healthy·재시작 0으로 확인됐고, 적용 후 13개 보존 검사가 모두 통과했습니다. 기존 대화·프로젝트·스킬·Connector·효과 기록·RRA·인증 파일, Wiki, 마운트와 보호 설정이 적용 직전과 일치했으며 다른 12개 컨테이너는 바뀌지 않았습니다. 이 확인은 worker00에 한정됩니다.</p></section>
     <section id="problem"><h2>무엇이 막혔나</h2><p>worker00의 기존 Connector 효과 기록에는 과거에 저장된 부가 메타데이터가 있습니다. 이전 이미지의 엄격한 읽기 방식은 이 추가 필드를 만나면 기록 전체를 거부해, 관련 없는 새 조회까지 진행하지 못했습니다. 보존된 기록은 기존 한도인 <strong>2,000건</strong>이며 JSON 자체가 손상됐거나 제공자 토큰이 거부됐다고 확인된 사례가 아닙니다. 사용자에게 보일 증상은 Connector 조회가 시작되기 전에 내부 기록 검증 오류로 차단되는 것입니다.</p></section>
     <section id="behavior"><h2>복구 범위와 보호 규칙</h2><p>새 읽기 방식은 이름과 크기·형식이 확인된 기존 부가 메타데이터만 허용합니다. 알 수 없는 필드와 핵심 값이 잘못된 기록은 계속 거부합니다. 메타데이터가 권한, 승인, 실제 작업 인자나 처리 결과를 바꾸도록 허용하지 않습니다.</p><p>기존의 <strong>확인 필요</strong> 기록은 그대로 보존하고 같은 요청의 실행을 차단합니다. 그 기록과 무관한 새 조회만 계속 진행할 수 있습니다. 결과가 불확실한 변경 작업의 중복 실행 방지도 유지합니다. 기록 삭제·초기화·재등록, 권한 확대, 승인 절차 우회는 하지 않으며 2,000건 보존 한도 정책도 바꾸지 않습니다. Console 메뉴·폼의 화면 변경은 없습니다.</p></section>
-    <section id="checks"><h2>확인된 검사와 제한</h2><p>정확한 새 소스에서 집중 Connector 검사, 유형 검사·빌드, Wiki 부정 사례 20건, 최소 안정성 검사와 깨끗한 소스의 전체 개발 검증을 통과했습니다. 실제 worker00의 보존 기록 2,000건은 <strong>새 순수 읽기 검사기로 읽기 전용 대조</strong>했고, 그중 확인 필요 상태 1건은 실행되지 않는 차단 상태로 유지됐습니다. 운영 파일은 바꾸지 않았습니다.</p><p>로컬 이미지의 애플리케이션 파일 1,361개와 출처를 대조했고, 읽기 전용·네트워크 차단 격리 환경에서 기본 이벤트 수신이 꺼진 것을 확인했습니다. 원격 Registry와 서버 배치 이미지도 같은 불변 빌드로 재검증했습니다. Codex 0.162.0, Claude 2.1.183, Kimi 0.29.2는 앞선 이미지와 같습니다. 공급·제안 완료는 worker00에서 새 이미지가 실행 중이거나 실제 GitLab 호출이 복구됐다는 증거가 아닙니다. CI 구현과 이벤트 전달·활성화도 아직 완료되지 않았습니다.</p></section>
-    <section id="acceptance"><h2>worker00 적용 후 재현 검사</h2><ol><li>정확한 이미지가 worker00에 적용됐는지, 건강 상태와 기존 대화·프로젝트·Connector 기록이 보존됐는지 운영 담당자가 읽기 전용으로 확인합니다. 다른 워커의 이미지는 별도로 기록합니다.</li><li>기존 Connector 기록의 개수와 확인 필요 상태를 적용 전후에 대조합니다. 확인 필요 요청의 재실행은 계속 차단돼야 하며 기록을 임의로 지우거나 승인 처리하지 않습니다.</li><li>그 기록과 무관한 승인된 읽기 작업 하나를 실행해 실제 GitLab 결과와 최종 상태를 확인합니다. 이 검사가 성공해야 운영 조회 복구를 통과로 기록합니다.</li><li>결과가 불확실한 변경 작업의 재전송 차단과 기록 오류 경계를 별도 격리 시험에서 확인합니다. 이후 worker00의 CI 작업은 Connector 조회 복구와 구분해 다시 판정합니다.</li></ol><p>worker00의 실제 적용·조회 결과와 기존 기록 보존이 확인되기 전에는 이 후보를 운영 복구 완료로 표시하지 않습니다.</p></section>
-    <section id="captures"><h2>화면 증거 범위</h2><p><strong>새 UI 변경 없음</strong>입니다. 이 수정은 내부 Connector 기록 읽기 호환성에 한정되므로 이전 화면을 새 버전의 캡처로 재사용하거나 새 화면을 임의로 만들지 않습니다. worker00 적용 후에는 오류가 사라진 실제 조회 결과와 최종 Task 상태를 민감정보 없이 기록합니다. 현재 그 운영 결과 캡처는 미확보입니다.</p></section>`
+    <section id="checks"><h2>확인된 검사와 제한</h2><p>정확한 새 소스에서 집중 Connector 검사, 유형 검사·빌드, Wiki 부정 사례 20건, 최소 안정성 검사와 깨끗한 소스의 전체 개발 검증을 통과했습니다. 적용 전 실제 worker00의 보존 기록 2,000건을 새 순수 읽기 검사기로 읽기 전용 대조했고, 적용 후 새 실행 이미지의 실제 리더로도 모두 읽었습니다. 그중 <strong>확인 필요 상태 1건은 보존된 차단 상태</strong>로 남았습니다. 기록 파일을 수동 수정·초기화하지 않았습니다.</p><p>원격 Registry와 서버 배치 이미지는 로컬 불변 빌드와 일치했고, worker00 적용 후 보존 검사는 13건 모두 통과했습니다. 별도 진단 요청에서 올바른 프로젝트를 탐색한 뒤 실제 <code>gitlab.api.request</code> 성공 기록을 확인해 기존 기록 검증 오류가 새 조회 전체를 막지 않음을 확인했습니다. 앞선 잘못된 프로젝트 경로의 HTTP 404는 별개이며, 최종 CI 파일·시험·Wiki 반영과 이벤트 전달은 아직 확인되지 않았습니다. 이벤트 수신은 꺼져 있고 발행자는 0명, 자동 정책은 기본 꺼짐입니다. 재관찰된 프로세스 정리 경고는 이 이미지 적용으로 근본 해결됐다고 보지 않습니다. Codex 0.162.0, Claude 2.1.183, Kimi 0.29.2는 앞선 이미지와 같습니다.</p></section>
+    <section id="acceptance"><h2>수용 결과와 남은 검사</h2><ol><li><strong>통과:</strong> worker00의 정확한 이미지·건강·재시작 0과 보존 파일·설정의 적용 전후 일치를 확인했습니다. 다른 워커의 적용은 이 기록으로 판정하지 않습니다.</li><li><strong>통과:</strong> 기존 효과 기록 2,000건을 실제 새 리더가 읽고, 확인 필요 기록 1건은 차단 상태로 남았습니다. 임의 승인·삭제·재실행은 하지 않았습니다.</li><li><strong>조회 경로 확인:</strong> 승인된 별도 진단에서 실제 GitLab Connector 성공 기록을 확인했습니다. 앞선 잘못된 경로의 404를 전체 복구 실패나 CI 성공으로 해석하지 않습니다.</li><li><strong>미완료:</strong> 진행 중인 CI 구성 작업의 최종 상태, 파일·시험·Wiki 반영과 이벤트 전송을 각각 확인해야 합니다. 결과가 불확실한 변경 작업의 중복 실행 방지도 격리 시험 범위로 남깁니다.</li></ol><p>설치된 이미지와 Connector 조회 경로의 수용을 CI 통합 완료로 확대하지 않습니다.</p></section>
+    <section id="captures"><h2>화면 증거 범위</h2><p><strong>새 UI 변경 없음</strong>입니다. 이 수정은 내부 Connector 기록 읽기 호환성에 한정되므로 이전 화면을 새 버전의 캡처로 재사용하거나 새 화면을 임의로 만들지 않습니다. 실제 조회 성공은 운영 기록으로 확인했으나 공개용 화면 캡처는 미확보입니다. CI 최종 Task 결과가 나오면 민감정보 없이 별도 기록합니다.</p></section>`
 };
