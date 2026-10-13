@@ -3,7 +3,7 @@
 공개 사용자 매뉴얼을 위한 정적 문서입니다. 2026-10-01 실제 실행·화면 증거와 2026-10-09~13 이미지·운영 상태에서 확인한 변경을 구분합니다. 내부 운영 문서와 원본 캡처는 공개 에셋과 분리합니다.
 
 - 목표 도메인: `manual.workers.dreamlabs.co.kr`
-- 현재 단계: 안내 문서 31개와 페이지별 재현 검사 31개, GitHub Pages 공개 배포
+- 현재 단계: 안내 문서 32개와 페이지별 재현 검사 32개, GitHub Pages 공개 배포
 - 기존 촬영 기준: 2026-10-01 KST worker00. 이후 UI가 바뀌어 이 캡처를 최신 화면 증거로 사용하지 않습니다.
 - 현재 실행 이미지 확인: 2026-10-13 08:26 KST 이후 worker0에서 시스템 이벤트·설치 스킬 자동업데이트 이미지와 정상 건강 상태를 확인했습니다. UI·스킬 진단 이미지는 같은 날 08:03 KST 당시 실행 기록입니다. worker00의 마지막 직접 이미지 확인은 2026-10-09 KST이며 그 뒤 적용 상태는 새로 판정하지 않습니다. 정확한 식별자는 내부 검증 문서에서 관리합니다.
 - 최신 탐색·워커 간 요청·스킬 로딩·전체 업데이트·스킬 설치 화면의 직접 캡처와 사용자 클릭 검증은 아직 확보하지 못했습니다. 페이지별로 미촬영을 표시합니다.
@@ -13,6 +13,7 @@
 - `guide/candidate-20261011-context-compat/`는 긴 대화 맥락 압축·이전 버전 호환을 보완한 이미지입니다. 2026-10-11 worker0 실행·건강 상태를 확인한 과거 적용 기록이며 기능과 새 화면 수용은 미완료입니다. 경로의 candidate는 최초 게시 당시 이름입니다.
 - `guide/candidate-20261011-ui-skills/`는 UI 상태·탐색 및 스킬 설치 실패 진단을 보완한 과거 worker0 적용 이미지입니다. 2026-10-13 08:03 KST 실행·건강 상태를 확인했으며 이후 다음 이미지로 변경됐습니다. 실제 화면·기능 수용은 미완료입니다.
 - `guide/candidate-20261013-system-events-skill-auto-update/`는 시스템 이벤트와 설치 스킬 자동업데이트를 추가한 이미지입니다. 2026-10-13 08:26 KST 이후 worker0 실행·건강 상태와 관리자 화면의 handler 준비·수신 꺼짐·발행자 0명을 확인했습니다. 신뢰 프록시 미설정으로 외부 HTTPS 호출은 거부되며 CI 구현·실제 이벤트 전달·스킬 자동업데이트·새 화면 촬영은 미완료입니다.
+- `guide/candidate-20261013-connector-ledger-compat/`는 기존 Connector 효과 기록의 부가 메타데이터 호환성을 보완한 별도 이미지 후보입니다. 로컬 빌드·격리 검사와 worker00의 보존 기록 2,000건 읽기 전용 검증을 통과했습니다. worker00 실제 적용·운영 GitLab 조회 복구·CI 구현은 아직 확인하지 않았습니다. UI 변경은 없습니다.
 
 ## 실행
 
@@ -25,7 +26,7 @@ python -m http.server 43817 --bind 127.0.0.1 --directory .
 
 ## 편집
 
-- `scripts/build-sample.mjs`, `scripts/full-guides.mjs`, `scripts/latest-guides.mjs`, `scripts/release-history.mjs`, `scripts/candidate-ui-context.mjs`, `scripts/candidate-security-codex.mjs`, `scripts/candidate-context-compat.mjs`, `scripts/candidate-ui-skills-diagnostics.mjs`, `scripts/candidate-system-events-skill-auto-update.mjs`: 문서 내용과 HTML 생성
+- `scripts/build-sample.mjs`, `scripts/full-guides.mjs`, `scripts/latest-guides.mjs`, `scripts/release-history.mjs`, `scripts/candidate-ui-context.mjs`, `scripts/candidate-security-codex.mjs`, `scripts/candidate-context-compat.mjs`, `scripts/candidate-ui-skills-diagnostics.mjs`, `scripts/candidate-system-events-skill-auto-update.mjs`, `scripts/candidate-connector-ledger-compat.mjs`: 문서 내용과 HTML 생성
 - `scripts/test-cases.mjs`: 기능별 시작 조건·실행 순서·통과 기준·증거
 - `guide/manual.css`: 공통 화면 구성
 - `guide/manual.js`: 예제 복사, 캡처 확대

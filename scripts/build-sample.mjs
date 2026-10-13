@@ -10,6 +10,7 @@ import { securityCodexCandidateGuide } from './candidate-security-codex.mjs';
 import { contextCompatCandidateGuide } from './candidate-context-compat.mjs';
 import { uiSkillsDiagnosticsCandidateGuide } from './candidate-ui-skills-diagnostics.mjs';
 import { systemEventsSkillAutoCandidateGuide } from './candidate-system-events-skill-auto-update.mjs';
+import { connectorLedgerCompatCandidateGuide } from './candidate-connector-ledger-compat.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const out = path.join(root, 'guide');
@@ -50,6 +51,7 @@ pages.push({slug:'follow-up',title:'같은 세션에서 후속 요청하기',des
 pages.push(...fullGuides(esc));
 pages.push(...latestGuides);
 pages.push(releaseHistoryGuide);
+pages.push(connectorLedgerCompatCandidateGuide);
 pages.push(systemEventsSkillAutoCandidateGuide);
 pages.push(uiSkillsDiagnosticsCandidateGuide);
 pages.push(contextCompatCandidateGuide);
