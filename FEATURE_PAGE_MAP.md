@@ -1,28 +1,29 @@
 # 기능별 문서와 확인 상태
 
-2026-10-01 과거 화면, 2026-10-09 당시 두 워커의 실행 이미지 확인, 2026-10-13 worker0·worker00의 Connector 호환성 이미지 실행·건강 상태 읽기를 구분한다. worker00 대시보드는 열어 확인했지만 신규 기능의 세부 화면 캡처와 조작 검증은 아직 없다.
+2026-10-01 과거 화면, 2026-10-09 당시 두 워커의 실행 이미지, 2026-10-16 worker0의 직전 통합 이미지 실행·건강 확인과 새 로컬 이미지 후보를 구분한다. worker00 대시보드는 열어 확인했지만 신규 기능의 세부 화면 캡처와 조작 검증은 아직 없다.
 
 | 범위 | 공개 문서 | 확인 상태 |
 |---|---|---|
 | 새 요청·상태·검색·후속 요청 | `guide/new-session/`, `task-status/`, `session-search/`, `follow-up/` | 가상 회의 메모를 실제로 실행해 정상 응답과 후속 결과 확인. 첫 실행 차단도 실제 기록 |
-| 대시보드 Action·Operations·Projects·Knowledge·PARA | `dashboard/`, `dashboard-views/` | 다섯 메뉴 확인. Action·Projects·PARA 화면 확인, 관점 전환 갱신 지연 관측 |
+| 대시보드 Action·Operations·Projects·Knowledge·PARA | `dashboard/`, `dashboard-views/` | 다섯 메뉴의 과거 화면 확인. 10월 16일 후보의 Action 제목·출처·요청자·세션 이동은 소스·격리 검사만 확인, 운영 화면 전 |
 | 모델·추론 강도·속도 | `execution-options/` | 선택 UI 확인, 옵션별 비교 실행 전 |
-| 최근·외부 세션, 메시지 복사 | `session-controls/`, `session-actions/` | 샘플 세션 검색·복원 확인, 외부 세션 상세 전 |
+| 최근·외부 세션, 메시지 복사 | `session-controls/`, `session-actions/` | 샘플 세션 검색·복원 확인. 10월 16일 후보의 맨 아래로 버튼은 운영 화면·모바일 조작 전 |
 | 파일 첨부 | `attachments/` | 버튼 확인, 실제 업로드 전 |
 | 예약 | `reservations/` | 새 예약 양식·기존 예약 메뉴 확인, 저장·실행 전 |
 | 프로젝트 | `projects/` | 생성 양식·프로젝트 목록 확인, 새 프로젝트 저장 전 |
 | 작업공간 탐색기 | `workspace/` | 패널 열기 확인, 파일 목록 로딩 완료 전 |
 | Wiki 탐색기·워크벤치 | `wiki-explorer/`, `wiki-workbench/` | 탐색 패널·검색·그래프·통계·마이그레이션 탭 확인, 검색 결과 검증 전 |
-| 응답 도구 | `response-tools/` | 응답 원문·정보 버튼 확인, 상세 열람 전 |
-| 언어·테마·설정 메뉴 | `preferences/`, `settings-map/` | 10월 1일 화면의 10개 탭 확인. 10월 15일 후보 소스의 시스템 포함 11개 탭과 파일 업로드 네 한도 문서화, 저장·새 화면 미검증 |
+| 응답 도구 | `response-tools/` | 과거 응답 원문·정보 버튼 확인. 10월 16일 후보의 Codex 실제 공개 요약·부분/최종 교체와 Chat/RRA 복원은 격리 검증, 운영 제공자 결과 전 |
+| 언어·테마·설정 메뉴 | `preferences/`, `settings-map/` | 10월 1일 화면의 10개 탭 확인. 10월 15일 이미지 소스의 시스템 포함 11개 탭과 파일 업로드 네 한도 문서화, worker0 실행·건강 확인. 저장·새 화면 미검증 |
 | 새 탐색·모바일 화면 | `console-navigation/` | 2026-10-09 실행 이미지·소스와 worker00 데스크톱 메뉴 확인. 최신 데스크톱/모바일 캡처·직접 조작 전 |
 | 워커 간 RRA 협업 | `remote-collaboration/` | 승인된 두 워커 사이 무첨부 최초·후속 2건의 과거 수용 증거 있음. 현재 UI 캡처·다른 대상 조작 전 |
 | 스킬 선택·로딩 정책 | `skill-loading/` | 설치/허용/선택 분리와 미리보기 소스·배포 확인. 현재 UI 캡처·새 작업 효과 전 |
-| 전체 업데이트 상태 | `whole-update/` | 2026-10-13 worker0의 UI·스킬 진단 이미지에서 시스템 이벤트 이미지로 업데이트 성공·정상 실행 확인. 다음 업데이트의 현재·대상은 실행 전에 새로 조회해야 함 |
+| 전체 업데이트 상태 | `whole-update/` | 2026-10-13 worker0의 과거 업데이트 성공 확인. 10월 16일 후보의 완료 화면·1회 새로고침·재로그인 알림 억제는 소스·격리 검사만 확인. 다음 할당은 실행 전에 새로 조회 |
 | 공식 스킬 레지스트리 선택 설치 | `skill-registry/` | 2026-10-09 양쪽 워커 실행 이미지·소스 포함. 새 화면 캡처·현재 설치 후 주입 검증 전 |
 | 문제 해결 | `troubleshooting/` | 실제 blocked 및 재실행 성공 사례 |
-| 제품 배포별 개선 이력 | `release-history/` | 2026-10-15 통합 이미지의 공급 완료·worker0 미적용, 2026-10-14 Claude 구독 인증 이미지와 worker0·worker1 실행 확인본을 구분. 정식 릴리스 번호 미확정 |
-| 실행 기록·업로드 설정 통합 이미지 | `candidate-20261015-console-upload-integration/` | 이미지 검사·Registry·서버 사전 배치 및 worker0 Manager 준비 확인. Console 버튼·실제 적용·기능 결과·새 운영 화면 미확인 |
+| 제품 배포별 개선 이력 | `release-history/` | 2026-10-16 Codex·Console 로컬 후보와 worker0 실행 확인된 2026-10-15 통합 이미지, 앞선 확인본을 구분. 정식 릴리스 번호 미확정 |
+| Codex 공개 요약·Console 후속 이미지 | `candidate-20261016-codex-ui-followup/` | 468건 개발 검사·로컬 이미지 격리 검사 통과. 자동 적용 정책 검토로 Registry·서버 공급·워커 적용 보류. 새 운영 화면 미확보 |
+| 실행 기록·업로드 설정 통합 이미지 | `candidate-20261015-console-upload-integration/` | 이미지 검사·Registry·서버 사전 배치 후 10월 16일 worker0 실행 이미지·건강 확인. 적용 경로·Console 완료 화면과 기능 결과·새 운영 화면 미확인 |
 | Claude 구독 인증 보정 이미지 | `candidate-20261014-claude-subscription-auth/` | 만료 액세스+갱신 토큰의 네이티브 갱신 기회, OAuth/종량제 자격 분리, --bare·다른 제공자 거부. claude-worker 정확한 실행 이미지·건강·인증 준비 확인. 모델 요청·갱신 성공, 상태 파일 정규화·설정/마운트 보존 확인, 운영 캡처 전 |
 | RRA 대화 이어가기·진행·동시 실행 이미지 | `candidate-20261013-rra-progress-capacity/` | 10월 14일 worker0·worker1 정확한 실행 이미지·건강 확인. RRA/Chat 연결·진행 재접속·관리자 상한 저장 결과와 새 기능 화면 미검증. 경로의 candidate는 최초 게시 당시 이름 |
 | Connector 기록 호환성 복구 이미지 | `candidate-20261013-connector-ledger-compat/` | worker00 정확한 이미지·건강·13건 보존 검사와 실제 기록 2,000건 읽기·GitLab 성공 확인. worker0 별도 실행 이미지·건강 확인, 보존·업무 결과 미검증. UI 변경 없음 |
