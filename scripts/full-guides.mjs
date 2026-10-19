@@ -142,7 +142,8 @@ const guides = [
   {
     slug:'changes', category:'버전', title:'매뉴얼 갱신 이력', description:'이 사용설명서에 추가·수정한 내용과 화면 증거의 날짜를 확인합니다.',
     sections:[
-      {id:'gitlab-fallback',title:'2026.10.19 · GitLab REST fallback 후보와 사용법 추가',text:'같은 이미지의 빌드·격리 검사와 Registry 등록·원격 식별을 확인하고 별도 버전 페이지와 GitLab 작업 사용법·검사 절차를 추가했다. 서버 이미지 배치, 새 제안, 지정 워커 적용과 실제 GitLab 결과는 미확인으로 표시했다. 직전 Codex·Console 이미지가 10월 19일 worker0에서 실행 중인 후속 조회를 별도로 반영했다.'},
+      {id:'gitlab-supply',title:'2026.10.19 · 같은 GitLab 이미지의 서버 배치·제안 상태 갱신',text:'기존 GitLab REST fallback 버전 페이지에서 18:36(KST) 서버 이미지 단독 배치와 18:37(KST) 관리 워커 8개의 정확한 대상 제안을 확인 상태로 갱신했다. 당시 기존 컨테이너·worker0 보호 설정이 보존되고 업데이트 제출은 없었다. 이후 실행 이미지와 실제 GitLab 결과·새 화면은 새로 검사해야 한다.'},
+      {id:'gitlab-fallback',title:'2026.10.19 · GitLab REST fallback 후보와 사용법 추가',text:'첫 게시 시에는 같은 이미지의 빌드·격리 검사와 Registry 등록·원격 식별을 확인하고 별도 버전 페이지와 GitLab 작업 사용법·검사 절차를 추가했다. 당시 서버 이미지 배치, 새 제안, 지정 워커 적용과 실제 GitLab 결과는 미확인으로 표시했다. 직전 Codex·Console 이미지가 10월 19일 worker0에서 실행 중인 후속 조회를 별도로 반영했다.'},
       {id:'codex-ui-supply',title:'2026.10.16 · 같은 이미지의 공급·제안 상태 갱신',text:'앞서 기록한 Codex·Console 후보와 정확히 같은 이미지를 Registry에 등록하고 서버에 이미지 단독 배치했다. worker0과 기존 자동 업데이트 대상의 Manager 제안을 확인했지만 공급 직후 새 이미지의 실제 워커 적용은 관찰되지 않았다. 실제 제공자 결과와 새 운영 화면도 없다.'},
       {id:'codex-ui-followup',title:'2026.10.16 · Codex 공개 요약·Console 후속 후보 추가',text:'Codex 실제 공개 요약의 부분·최종 교체와 Chat/RRA 복원, Action 작업 식별, 맨 아래로 버튼, 업데이트 완료 화면을 별도 버전 페이지와 기능별 검증 절차에 추가했다. 최초 게시 시에는 로컬 불변 이미지 검사만 완료됐고 자동 적용 정책 검토로 공급이 보류됐다. 이후 같은 이미지의 공급 상태는 위 항목에서 갱신했다.'},
       {id:'console-upload-runtime',title:'2026.10.16 · 직전 통합 이미지의 worker0 실행 상태 갱신',text:'10월 16일 08:57(KST) 읽기에서 worker0이 10월 15일 통합 이미지로 건강하게 실행 중이며 재시작 0임을 확인해 기존 미적용 표기를 바로잡았다. 업데이트 경로·Console 완료 화면과 기능별 실제 결과·새 화면은 검증하지 않았다.'},
