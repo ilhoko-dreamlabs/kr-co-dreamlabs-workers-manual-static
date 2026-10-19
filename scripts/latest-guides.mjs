@@ -33,28 +33,29 @@ export const latestGuides = [
   {
     slug:'skill-loading', title:'스킬 선택과 로딩 상태 확인하기', category:'설정',
     description:'설치·사용 허용·선택·새 작업 적용을 나눠 읽고 스킬이 선택된 이유를 확인합니다.',
-    verifiedAt:'2026.10.09', evidenceLabel:'실행 이미지·소스 확인 / 화면 미촬영', noScreenshot:true,
+    verifiedAt:'2026.10.19', evidenceLabel:'과거 이미지 확인·gitlab-work 후보 소스 / 새 화면 미촬영', noScreenshot:true,
     quick:{where:'설정 → 스킬 → 주입 정책',do:'사용 허용·로딩 방식·범위를 확인하고 선택 미리보기 실행',check:'새 작업 뒤 실제 선택 ID·사유·정책 revision 재조회'},
-    toc:[['scope','상태 구분'],['modes','로딩 방식'],['preview','선택 미리보기'],['effective','실제 선택 확인'],['limits','한도와 차단']],
+    toc:[['scope','상태 구분'],['modes','로딩 방식'],['preview','선택 미리보기'],['effective','실제 선택 확인'],['gitlab-skill','GitLab 번들 스킬'],['limits','한도와 차단']],
     body:()=>`
       <section id="scope"><h2>설치와 사용을 구분하기</h2><p><strong>설정 → 스킬 → 주입 정책</strong>에서 스킬이 설치됐는지, 사용 허용 상태인지, 어느 화면·프로젝트·세션에서 쓸 수 있는지 확인합니다. 설치 완료만으로 새 요청에 전문이 들어가지는 않습니다. 기존 전체 스킬 일괄 주입과 달리 새 정책은 요청마다 관련 스킬을 제한해 선택합니다.</p>${scope}</section>
       <section id="modes"><h2>로딩 방식 읽기</h2><p><strong>상시 안내</strong>는 짧은 라우팅 안내만 항상 제공하고 전체 절차는 필요할 때 선택합니다. <strong>자동</strong>은 요청 의도와 허용 범위가 맞을 때 선택합니다. <strong>수동</strong>은 명시적으로 고른 스킬만 사용합니다. 비활성 스킬은 설치돼 있어도 선택되지 않습니다. 필수 Worker 스킬은 해제할 수 없지만 매 요청에 전체 본문이 들어간다는 뜻은 아닙니다.</p></section>
       <section id="preview"><h2>선택 미리보기</h2><p>관리자는 샘플 요청, 실행 화면, 프로젝트·세션 범위를 입력해 <strong>선택 미리보기</strong>를 실행할 수 있습니다. 결과의 <strong>Routing</strong>, <strong>전문</strong>, <strong>사유</strong>와 bytes/tokens/개수 한도를 확인합니다. 미리보기는 정책 계산이며 실제 새 작업의 실행 결과가 아닙니다.</p></section>
       <section id="effective"><h2>실제 선택 기록</h2><p>새 요청을 실행했다면 <strong>실제 선택</strong>과 <strong>스킬별 마지막 선택 시각</strong>을 다시 읽습니다. 선택된 스킬 ID, 이유, 정책 revision과 새 작업의 결과를 함께 봐야 적용 여부를 판단할 수 있습니다. 수동 선택은 정확한 <code>$스킬-이름</code> 언급 또는 UI의 명시 선택으로 요청합니다.</p></section>
+      <section id="gitlab-skill"><h2>GitLab 번들 스킬과 권한</h2><p>2026.10.19 이미지 후보에는 <code>gitlab-work</code> 안내가 번들로 포함됩니다. 실제 새 작업에서 선택됐는지 확인하되, 스킬 표시·설치·선택은 GitLab 자격이나 프로젝트 권한을 부여하지 않습니다. 적용된 워커에서 계정·리소스·읽기 전용 정책과 실제 GitLab 결과를 <a href="../gitlab-work/">GitLab 작업 안내</a>에 따라 따로 검사하세요. 이 후보의 운영 스킬 선택 화면과 기능 결과는 아직 미확인입니다.</p></section>
       <section id="limits"><h2>한도 초과와 오류</h2><p>스킬 전문이 너무 크거나 범위·권한이 맞지 않으면 해당 스킬은 제외되거나 차단될 수 있습니다. 관련 없는 일반 요청까지 모든 스킬을 넣다가 차단되는 현상을 해결하는 것이 새 정책의 목적입니다. 예고 없이 권한이나 커넥터 범위가 늘어나는 것은 기대 동작이 아닙니다.</p></section>`
   },
   {
     slug:'whole-update', title:'워커 전체 업데이트 상태 읽기', category:'설정',
     description:'관리자 화면에서 할당·차단 사유·유지보수 단계와 보존 요청 상태를 확인합니다.',
-    verifiedAt:'2026.10.16', evidenceLabel:'과거 worker0 업데이트 확인 / 새 완료 화면 후보 소스·미촬영', noScreenshot:true,
+    verifiedAt:'2026.10.19', evidenceLabel:'worker0 실행 이미지 확인 / 완료 화면·기능 미촬영', noScreenshot:true,
     quick:{where:'대시보드 → 업데이트 열기 또는 설정 → 런타임 → 전체 업데이트',do:'현재·대상 할당과 차단 사유를 읽기 전용으로 확인',check:'단계와 보존 요청 상태를 재조회해 기록'},
-    toc:[['scope','접근과 적용 범위'],['inspect','할당 확인'],['run','수동 업데이트'],['maintenance','유지보수 중'],['finish','완료·복구 판단'],['completion-ui','새 완료 안내 후보']],
+    toc:[['scope','접근과 적용 범위'],['inspect','할당 확인'],['run','수동 업데이트'],['maintenance','유지보수 중'],['finish','완료·복구 판단'],['completion-ui','완료 안내 확인 범위']],
     body:()=>`
       <section id="scope"><h2>접근과 적용 범위</h2><p>대시보드의 <strong>업데이트 열기</strong> 또는 <strong>설정 → 런타임 → 전체 업데이트</strong>에서 현재 릴리스, 대상 할당, 차단 사유와 단계를 읽습니다. 업데이트 적용과 자동 정책 변경은 관리자·업데이트 운영자 권한의 운영 작업입니다. 이 페이지의 재현 검사는 우선 읽기 전용으로 진행합니다.</p>${scope}</section>
       <section id="inspect"><h2>현재·대상 할당 확인하기</h2><p><strong>할당 대기</strong>, <strong>할당 수신</strong>, <strong>확인 필요</strong>, <strong>만료됨</strong>을 구분합니다. 버튼이 비활성인 이유를 읽고 현재와 대상 릴리스가 예상한 한 쌍인지 확인합니다. 자동 할당은 콘솔에서 수동 실행할 수 없습니다.</p><div class="note"><strong>worker0의 10월 13일 업데이트 기록</strong>08:03(KST)에는 <a href="../candidate-20261011-ui-skills/">UI·스킬 진단 이미지</a>가 실행 중이고 <a href="../candidate-20261013-system-events-skill-auto-update/">시스템 이벤트·설치 스킬 자동업데이트 이미지</a>가 대상 할당이었습니다. 이후 사용자 업데이트가 진행됐고 08:26(KST) 이후 새 이미지의 실행·정상 건강 상태와 콘솔 성공 표시를 확인했습니다. 이 기록은 이벤트 전달·스킬 자동업데이트 기능의 통과가 아닙니다. 새 업데이트를 실행할 때는 현재·대상과 차단 사유를 다시 읽으세요. 일반 사용자가 잠금 파일을 직접 지우거나 재시작할 일은 아닙니다.</div></section>
       <section id="run"><h2>수동 업데이트 요청하기</h2><p>운영 검증과 대상 할당 확인이 끝난 경우에만 <strong>전체 업데이트 실행</strong>을 사용합니다. 확인 창은 한 할당을 외부 실행기에 요청하며 새 요청은 보존 대기열에 들어가고 설정 변경이 잠길 수 있음을 알립니다. 버튼 클릭 직후 접수 메시지는 업데이트 성공을 뜻하지 않습니다.</p></section>
       <section id="maintenance"><h2>유지보수 중 화면 읽기</h2><p><strong>외부 실행 요청됨 → 업데이트 적용 중 → 업데이트 검증 중</strong> 단계를 따라갑니다. 연결이 잠시 끊기면 콘솔을 새로고침하거나 다시 로그인해 현재 단계를 재조회합니다. 유지보수 중 변경 작업과 로그아웃이 제한될 수 있습니다.</p></section>
       <section id="finish"><h2>완료와 보존 요청 확인하기</h2><p><strong>업데이트 완료</strong> 이후 새 릴리스와 Worker 건강 상태를 확인합니다. 보존 요청이 남아 있다면 검증 완료 뒤 <strong>보존 요청 재개</strong> 가능 여부를 별도로 봅니다. 실패·차단·롤백 단계라면 새 업데이트를 연속 실행하지 말고 운영 기록의 사유와 기존 요청 상태를 확인합니다.</p></section>
-      <section id="completion-ui"><h2>새 완료 안내 후보</h2><p>2026.10.16 공급 이미지 후보는 완료 시 차단성 alert 대신 화면 안내를 보여 주고, 같은 업데이트 의도에 대해 콘솔을 한 번만 자동 새로고침하도록 보완했습니다. 다시 로그인해도 과거 완료 알림을 반복하지 않아야 합니다. Registry·서버 공급과 Manager 제안은 확인됐지만 실제 지정 워커 적용 전입니다. 이 안내의 운영 화면과 재로그인 결과는 실제 업데이트 후에만 검사할 수 있습니다.</p></section>`
+      <section id="completion-ui"><h2>완료 안내 확인 범위</h2><p>2026.10.16 이미지는 완료 시 차단성 alert 대신 화면 안내를 보여 주고, 같은 업데이트 의도에 대해 콘솔을 한 번만 자동 새로고침하도록 보완했습니다. 다시 로그인해도 과거 완료 알림을 반복하지 않아야 합니다. 10월 19일 worker0의 정확한 실행 이미지·건강은 확인됐지만 업데이트 당시 완료 화면과 재로그인 결과는 관찰하지 못했습니다. 기능 통과로 기록하기 전에 승인된 다음 시험 업데이트에서 별도로 확인하세요.</p></section>`
   }
 ];
