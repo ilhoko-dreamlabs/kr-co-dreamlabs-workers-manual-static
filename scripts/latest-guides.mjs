@@ -27,7 +27,7 @@ export const latestGuides = [
       <section id="prepare"><h2>요청 준비</h2><p>대화에서 사용할 대상 워커와 할 일을 명시합니다. 예: “연결된 시험 워커에 아래 가상 회의 메모를 요약해 달라고 요청해 주세요. 파일 첨부와 외부 전송은 하지 마세요.” 워커가 요청 미리보기와 정확한 대상·내용을 보여 줄 때 검토합니다. 모델이 대상 워커를 임의로 만들거나 선택하는 흐름은 기대 동작이 아닙니다.</p></section>
       <section id="approve"><h2>한 요청만 승인하기</h2><p>Remote Request API의 <strong>협업</strong> 화면에 <strong>승인 대기</strong> 요청이 생기면 대상, 요약, 만료 상태를 확인합니다. 의도한 요청에만 <strong>1회 승인 및 전송</strong>을 선택합니다. 승인은 그 요청 하나에만 적용되고 후속 요청에는 새 승인이 필요합니다.</p></section>
       <section id="result"><h2>양쪽 결과 읽기</h2><p>호출 워커의 보낸 요청에서 상태를 확인하고, 대상 워커의 Remote Request 기록과 결과를 대조합니다. 정상 완료는 호출 측 <strong>succeeded</strong>와 대상 측 <strong>completed</strong>, 실제 답변 내용이 함께 있어야 합니다. 보낸 요청 ID와 대상 요청 ID는 서로 다릅니다.</p></section>
-      <section id="continue"><h2>같은 원격 대화에서 이어가기</h2><p>앞선 결과를 읽은 뒤 같은 원격 대화에 대한 후속 질문을 작성합니다. 원격 세션은 유지하되 요청 ID와 1회 승인은 새로 생성됩니다. 후속 요청이 별도 새 원격 세션으로 열리거나 사용자의 새 승인 없이 자동 실행되면 기록하고 중단합니다.</p></section>
+      <section id="continue"><h2>같은 원격 대화에서 이어가기</h2><p>앞선 결과를 읽은 뒤 같은 원격 대화에 대한 후속 질문을 작성합니다. 원격 세션은 유지하되 요청 ID와 1회 승인은 새로 생성됩니다. 후속 요청이 별도 새 원격 세션으로 열리거나 사용자의 새 승인 없이 자동 실행되면 기록하고 중단합니다. 개발자·개발 워커는 <a href="../rra-integration/">RRA v1 연동 규약과 세션 이어가기 예제</a>를 참조하세요.</p></section>
       <section id="failure"><h2>만료·차단·전송 불확실성</h2><p>승인이 만료됐다면 새 요청을 준비해 다시 검토합니다. <strong>delivery_uncertain</strong>이면 <strong>전송 상태 복구</strong>로 기존 요청을 확인한 뒤 재시도 여부를 결정합니다. 결과가 blocked/failed여도 자동 후속 요청을 만들지 않습니다. 이 기능은 과거 worker0→worker1 한 쌍의 무첨부 시험에서 최초·후속 요청이 확인됐으며, 모든 워커 조합의 통과를 뜻하지 않습니다.</p></section>`
   },
   {

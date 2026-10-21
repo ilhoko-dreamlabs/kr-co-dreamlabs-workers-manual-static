@@ -1,5 +1,11 @@
 // Public, reproducible checks. These are instructions for a reader, not claims that each check passed.
 export const testCases = {
+  'rra-integration': {
+    setup: 'RRA v1이 켜진 승인된 시험 Worker의 HTTPS 주소와 그 Worker가 발급한 시험 API Key가 필요합니다. 가상 회의 메모만 사용하고 키 원문은 공개 기록에 남기지 않습니다.',
+    steps: ['첫 POST에 sessionId를 생략하고 고유 Idempotency-Key를 넣어 제출합니다. 202 응답이면 requestId로 결과를 폴링해 sessionId를 저장합니다.', '첫 결과가 terminal=true, state=completed인지 확인합니다. 같은 API Key·같은 sessionId와 새 Idempotency-Key로 후속 질문을 제출합니다.', '두 번째 요청이 종료되면 두 requestId가 서로 다르고 sessionId는 같은지 확인합니다. GET /api/v1/sessions/{sessionId}에서 user/assistant 메시지 두 쌍을 확인합니다.', '같은 Key·같은 본문의 멱등성 재조회와 같은 Key·다른 본문의 409 충돌을 격리 시험에서 확인합니다. 다른 Key의 세션은 읽거나 이어갈 수 없어야 합니다.'],
+    expected: '후속 응답은 첫 대화의 가상 날짜 두 개를 이어받아 기한순으로 정리합니다. 각 의미 요청의 requestId와 멱등성 키는 다르지만 sessionId는 같습니다. 202만으로 완료를 판정하지 않으며 다른 Key의 세션은 노출되지 않습니다.',
+    evidence: '대상 Worker 이미지·설정 revision·확인 시각, 비밀값을 제거한 HTTP 상태·스키마 버전, 두 requestId와 sessionId, 메시지 역할·상태·결과를 기록합니다. 이 절차는 운영 통과 기록이 아니라 재현 검사입니다.'
+  },
   'console-navigation': {
     setup: '2026-10-08 이후 배포된 시험 워커의 데스크톱과 좁은 화면(약 390px)에서 각각 확인합니다.',
     steps: ['최근 세션·프로젝트·예약·Mattermost·Remote Request API 그룹을 차례로 펼칩니다.', '시험 세션 하나를 선택하고 강조 표시와 본문 목적지를 비교합니다.', '모바일 서랍을 열어 같은 세션을 선택하고 닫기 버튼으로 돌아옵니다.', '새로고침 후 펼침 상태와 세션 내용을 다시 확인합니다.'],
