@@ -6,6 +6,12 @@ export const testCases = {
     expected: '후속 응답은 첫 대화의 가상 날짜 두 개를 이어받아 기한순으로 정리합니다. 각 의미 요청의 requestId와 멱등성 키는 다르지만 sessionId는 같습니다. 202만으로 완료를 판정하지 않으며 다른 Key의 세션은 노출되지 않습니다.',
     evidence: '대상 Worker 이미지·설정 revision·확인 시각, 비밀값을 제거한 HTTP 상태·스키마 버전, 두 requestId와 sessionId, 메시지 역할·상태·결과를 기록합니다. 이 절차는 운영 통과 기록이 아니라 재현 검사입니다.'
   },
+  'rra-session-continuation': {
+    setup: 'RRA v1을 켠 승인된 시험 Worker의 HTTPS 주소·시험 API Key 또는 같은 Chat에서 사용할 시험용 Worker Connector가 필요합니다. 대상의 실행 이미지와 설정 revision을 먼저 기록하고 가상 데이터만 사용합니다.',
+    steps: ['HTTP 첫 POST에는 sessionId를 생략하고 고유 Idempotency-Key를 넣습니다. 202이면 requestId로 결과를 조회해 terminal=true·state=completed와 sessionId를 저장합니다.', '같은 API Key·sessionId, 새로운 Idempotency-Key로 후속 질문을 보내고 두 번째 requestId로 최종 결과를 조회합니다.', '두 requestId가 다르고 sessionId가 같은지, GET /api/v1/sessions/{sessionId}에 user/assistant 메시지 두 쌍이 있는지 확인합니다.', '개발 워커에서는 rra.targets → 첫 rra.preview → Console 1회 승인 → rra.status를 수행한 뒤 같은 Chat·Connector·sessionAnchorId로 새 rra.preview와 별도 승인을 수행합니다.', '첫·두 번째 outboundRequestId가 다르고 sessionAnchorId 및 대상 remoteSessionId가 유지되는지 확인합니다. 전송 결과 불명은 원래 outboundRequestId로만 대조합니다.'],
+    expected: 'HTTP의 후속 요청은 새 requestId와 기존 sessionId를 갖고, 개발 워커의 후속 요청은 새 outboundRequestId와 기존 sessionAnchorId·대상 세션을 갖습니다. 각 요청은 명시적 승인과 최종 상태 대조를 거치며, 첫 요청의 두 가상 날짜가 후속 결과에서 유지됩니다.',
+    evidence: '대상·호출 Worker의 정확한 이미지, API/Connector 설정 revision, 확인 시각, 비밀값을 가린 두 요청 ID·세션 ID·anchor·승인 시각, 두 최종 상태와 메시지 역할/내용을 기록합니다. 이 문서는 재현 절차이며 운영 통과 기록이 아닙니다.'
+  },
   'console-navigation': {
     setup: '2026-10-08 이후 배포된 시험 워커의 데스크톱과 좁은 화면(약 390px)에서 각각 확인합니다.',
     steps: ['최근 세션·프로젝트·예약·Mattermost·Remote Request API 그룹을 차례로 펼칩니다.', '시험 세션 하나를 선택하고 강조 표시와 본문 목적지를 비교합니다.', '모바일 서랍을 열어 같은 세션을 선택하고 닫기 버튼으로 돌아옵니다.', '새로고침 후 펼침 상태와 세션 내용을 다시 확인합니다.'],

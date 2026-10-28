@@ -2,6 +2,11 @@
 
 이 파일은 사용자 매뉴얼의 변경을 기록한다. 제품 릴리스 노트와 구분한다.
 
+## 2026-10-28 · RRA 세션 연속 대화 전용 URL
+
+- `/guide/rra-session-continuation/`에 공개 HTTP `sessionId`와 개발 워커 `sessionAnchorId`의 차이, 첫·후속 요청 예제, 별도 승인, 최종 상태·메시지 대조, 전달 불명 복구를 게시했다.
+- 공개 API `/api/v1`과 RRA 상태·대화·협업 v1 스키마를 10월 28일 Worker 소스와 대조했다. 운영 호출과 새 화면 캡처는 아직 실행하지 않았다.
+
 ## 2026-10-21 · RRA v1 연동 개발자 가이드
 
 - 고정 URL `guide/rra-integration/`에 API Key 인증, `/api/v1` 경로와 스키마 버전, 요청·결과 폴링, 멱등성, 첨부와 오류 대응, 같은 `sessionId`로 이어가는 실행 가능한 Node.js 예제를 게시했다.

@@ -19,6 +19,7 @@
 | 새 탐색·모바일 화면 | `console-navigation/` | 2026-10-09 실행 이미지·소스와 worker00 데스크톱 메뉴 확인. 최신 데스크톱/모바일 캡처·직접 조작 전 |
 | 워커 간 RRA 협업 | `remote-collaboration/` | 승인된 두 워커 사이 무첨부 최초·후속 2건의 과거 수용 증거 있음. 현재 UI 캡처·다른 대상 조작 전 |
 | RRA v1 API·세션 연속 대화 연동 | `rra-integration/` | 2026-10-21 구현 라우트·입력 계약·대화 서비스와 계약 검사 대조. 요청/결과·멱등성·첨부·오류·Node.js 예제·개발 워커 승인 흐름을 문서화. 운영 API 호출·새 UI 캡처 전 |
+| RRA 세션 이어 대화 전용 URL | `rra-session-continuation/` | 2026-10-28 공개 라우트·대화 서비스·협업 도구 계약 대조. HTTP `sessionId`와 개발 워커 `sessionAnchorId`의 후속 요청·별도 승인·상태 대조·전달 불명 복구를 예제로 설명. 운영 API 호출·새 UI 캡처 전 |
 | GitLab 작업·REST 대체 경로 | `gitlab-work/` | 10월 19일 후보의 소스·격리 검사·Registry·서버 배치·8개 워커 제안 확인. Connector 우선, 독립 승인 대체·읽기 전용·결과 불명 쓰기 보호를 문서화. 실제 적용·기능 결과·새 화면 전 |
 | GitLab·GitHub 연결 권한·전환·재인증 | `git-provider-access/` | 별도 10월 19일 이미지의 로컬 Chromium 후보 화면 3장(모의 API), 한국어·영어 360/390/1280px 6건 통과. Registry·서버 배치·8개 제안 확인. 실제 적용·운영 제공자 결과 전 |
 | 스킬 선택·로딩 정책 | `skill-loading/` | 설치/허용/선택 분리와 미리보기 소스·배포 확인. 현재 UI 캡처·새 작업 효과 전 |

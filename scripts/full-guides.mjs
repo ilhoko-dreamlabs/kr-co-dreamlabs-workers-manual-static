@@ -144,6 +144,7 @@ const guides = [
   {
     slug:'changes', category:'버전', title:'매뉴얼 갱신 이력', description:'이 사용설명서에 추가·수정한 내용과 화면 증거의 날짜를 확인합니다.',
     sections:[
+      {id:'rra-session-continuation',title:'2026.10.28 · RRA 세션 연속 대화 전용 URL',text:'외부 HTTP 호출의 sessionId와 개발 워커 협업의 sessionAnchorId를 구분하고, 두 요청의 예제·승인·결과 대조·전달 불명 복구를 독립 페이지로 정리했다. 소스 계약 기준이며 새 운영 호출과 화면 캡처는 미검증이다.',link:'rra-session-continuation',linkLabel:'RRA 세션 이어 대화하기 보기'},
       {id:'rra-integration',title:'2026.10.21 · RRA v1 연동 개발자 가이드',text:'고유 URL의 RRA 개발자 문서에 API 경로·스키마 버전·API Key·멱등성·상태/결과 조회·첨부·오류, 같은 sessionId로 후속 대화를 이어가는 Node.js 예제와 개발 워커의 승인된 Connector 흐름을 추가했다. 현재 구현의 POST 202 응답에는 sessionId가 없어 상태/결과에서 읽어야 한다는 점을 명시했다. 소스·계약 검사 기준이며 새 운영 API 호출과 Console 화면은 미검증이다.',link:'rra-integration',linkLabel:'RRA v1 연동 개발자 가이드 보기'},
       {id:'claude-file-supply',title:'2026.10.20 · 같은 Claude 파일 이미지의 서버 배치·제안 상태 갱신',text:'기존 Claude 파일 한도·오류 안내 버전 페이지에서 14:21(KST) 서버 이미지 단독 배치·정확 식별과 관리 워커 8개의 대상 제안을 확인 상태로 갱신했다. 당시 기존 13개 컨테이너·worker0 보호 설정이 보존되고 Update 제출·강제 실행·정책 변경은 없었다. 이후 실행 이미지와 운영 파일 결과·새 화면은 워커별로 새로 확인해야 한다.'},
       {id:'claude-file-policy',title:'2026.10.20 · Claude 파일 한도·오류 안내 후보 추가',text:'앞선 Git 계정 권한 이미지와 별도 정확 이미지의 파일 정책 연결, 실행 시작 한도 고정, 크기/전송 첫 오류 보존과 Chat/RRA 안내를 버전 상세·설정·첨부·문제 해결 페이지에 반영했다. 첫 게시 때는 불변 이미지·격리 검사와 Registry 식별까지만 확인했고 서버 배치·워커 적용·운영 파일 결과는 미검증이었다. 실제 후보 설정/오류 컴포넌트를 로컬 Chromium·합성 데이터로 촬영한 세 장은 운영 캡처와 구분했다.'},
