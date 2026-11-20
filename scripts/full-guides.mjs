@@ -20,6 +20,7 @@ const guides = [
   {
     slug:'execution-options', category:'세션', title:'모델과 실행 옵션 선택하기', description:'요청 입력란의 모델·추론 강도·속도와 결과 상태를 확인합니다.',
     sections:[
+      {id:'named-profiles-candidate',title:'새 실행 프로필 후보와 구분하기',text:'2026.10.22 이미지 후보에는 관리자가 이름 붙인 프로필과 Console 이번 요청·세션 상속, 실행 설정 미리보기가 추가됐습니다. 이 페이지의 10월 1일 캡처는 그 후보 화면이 아닙니다. Registry·서버 배치·관리 대상 제안은 확인됐지만 지정 워커 적용과 새 화면 촬영은 아직 없으므로 후보 사용법에서 적용 상태와 시험 순서를 먼저 확인하세요.',link:'named-execution-profiles',linkLabel:'실행 프로필 후보 사용법 보기'},
       {id:'find',title:'실행 프로필 찾기',text:'새 세션 또는 기존 세션의 요청 입력란 옆에서 모델, 추론 강도, 속도 선택기를 확인합니다. 선택 가능한 값은 워커 구성에 따라 달라집니다.',image:'02-compose.png',alt:'요청 입력란과 실행 프로필이 보이는 실제 화면',caption:'기본 선택 상태에서 요청을 작성한 실제 화면입니다.'},
       {id:'choose',title:'요청 전 옵션 확인하기',text:'모델 목록에서 원하는 항목을 선택하고, 추론 강도와 속도를 확인한 뒤 요청을 보냅니다. 예제 촬영에서는 기본 선택을 유지했습니다. 옵션을 바꾼 실행 결과는 별도 검증이 필요합니다.'},
       {id:'result',title:'결과 확인하기',text:'모델 선택과 작업 성공 여부는 별개입니다. 최종 답변과 Worker result의 상태를 확인합니다. 처리 중에는 같은 요청을 다시 보내기 전에 현재 상태를 살핍니다.'}
@@ -54,6 +55,7 @@ const guides = [
   {
     slug:'reservations', category:'예약', title:'예약 작업 만들고 확인하기', description:'반복 요청의 이름·내용·일정·활성 상태를 설정합니다.',
     sections:[
+      {id:'run-now-candidate',title:'새 예약 지금 실행 후보와 구분하기',text:'2026.10.22 이미지 공급 후보에는 기존 예약의 지금 실행과 실행 프로필 상속이 추가됐습니다. Registry·서버 배치·제안은 확인됐지만 지정 워커 적용은 확인되지 않았습니다. 이 페이지의 과거 예약 양식 캡처에는 해당 버튼이 없습니다. 현재 워커에 후보가 적용됐는지 확인한 뒤 접수 상태·완료 이력·다음 예약 시각 불변을 시험하세요.',link:'named-execution-profiles',linkLabel:'예약 지금 실행 후보 사용법 보기'},
       {id:'new',title:'새 예약 양식 열기',text:'왼쪽 예약 항목 옆 ＋를 선택합니다. 이름과 프롬프트를 입력한 뒤 일정 방식을 고릅니다.',image:'schedule-editor.png',alt:'실제 새 예약 설정 화면',caption:'저장 전의 예약 양식입니다. 실제 예약은 생성하지 않았습니다.'},
       {id:'schedule',title:'실행 일정 확인하기',text:'화면에는 Daily, Weekly, Monthly, Yearly, Minute interval, Cron Expression 방식이 있습니다. 실행 시간을 정하면 Canonical Cron 표현식이 표시됩니다. Enabled와 Dry run 상태를 확인한 뒤 저장합니다.'},
       {id:'review',title:'예약 다시 보기',text:'예약 목록에는 사용 여부와 다음 실행 시각이 표시됩니다. 기존 예약의 수정 버튼에서 설정을 확인할 수 있습니다. 시간대와 실행 결과는 예약 상세에서 다시 확인하세요.'},
@@ -112,8 +114,10 @@ const guides = [
     slug:'settings-map', category:'설정', title:'설정 메뉴와 상태 읽기', description:'열한 가지 설정 탭의 목적과 저장·적용 상태를 구분합니다.',
     sections:[
       {id:'open',title:'설정 열기',text:'왼쪽 아래 계정 영역의 설정 열기를 선택합니다. 2026.10.15 이미지 소스에는 런타임, 어댑터, 환경 변수, 예약 설정, 플러그인, 커넥터, 스킬, 지식, 도구, 보안, 시스템의 열한 탭이 있습니다. 10월 16일 worker0 실행 이미지는 확인됐지만 새 설정 화면은 미촬영입니다. 아래 사진은 시스템 탭이 추가되기 전인 10월 1일 화면입니다.',image:'settings-overview.png',alt:'10월 1일 워커 설정의 열 가지 탭',caption:'시스템 탭이 추가되기 전의 과거 설정 화면입니다.'},
+      {id:'console-c10-settings',title:'2026.10.28 C10 후보: 새 Console 설정 네 항목',text:'C10 로컬 이미지 후보의 새 Console은 파일 업로드 정책·로컬 사용자·실행 프로필·런타임 어댑터 네 상세를 연결합니다. 앞의 두 항목은 Google 관리자만 조회/변경하고, 뒤의 두 항목은 일반 사용자가 조회할 수 있으나 변경은 관리자 전용입니다. 나머지 상세 설정은 기존 Console에서 엽니다. 동일 이미지는 Registry 등록·서버 이미지 단독 공급·8개 업데이트 제안까지 확인됐으며, C10 워커 적용·운영 화면은 아직 확인 전입니다.',link:'console-next-settings',linkLabel:'C10 설정별 사용법과 재현 검사 보기'},
       {id:'runtime',title:'런타임: 작업 실행 조건',text:'워커 기반에서 작업 디렉터리·공통 지침·권한·실행 제한을 확인하고, 프로필과 현재 선택된 런타임을 구분합니다. 원격 요청, 업데이트, 프로세스 상태, 실행 파일 미리보기, 안전 경계는 각각 별도 카드입니다. 런타임 선택 버튼을 눌렀다면 현재 선택값을 다시 읽고 새 작업에 적용됐는지 확인해야 합니다.'},
       {id:'adapters',title:'어댑터: 모델과 인증',text:'어댑터 카드는 제공자별 로그인 또는 API 키와 모델 설정을 나누어 보여 줍니다. 사용 중, available, not configured, not logged in, 후보 상태를 서로 구분하세요. available은 실제 로그인이나 모델 호출 성공을 뜻하지 않습니다. 모델 선택을 바꾼 뒤에는 새 요청의 모델과 결과를 확인합니다.'},
+      {id:'claude-plan-long-token',title:'Claude Code Plan: 장기 인증 후보',text:'2026.10.25 로컬 이미지 후보의 설정 → 어댑터 → Claude Code Plan → 설정에는 기존 Plan Login 아래에 별도 장기 인증 패널이 있습니다. Google 관리자만 브라우저 setup-token 연결 또는 이미 발급한 장기 OAuth 토큰 등록·제거를 조작합니다. 현재 소스, 만료, 마지막 변경과 CLI 확인 범위를 읽고, 모르는 만료일은 입력하지 않습니다. 저장 후 다음 Claude 실행부터 적용되지만 이 이미지는 아직 Registry·워커 적용 전이고 실제 새 화면·토큰 발급·모델 결과는 없습니다.',link:'candidate-20261025-claude-plan-auth',linkLabel:'Claude Plan 장기 인증 후보의 화면 절차와 테스트 보기'},
       {id:'env',title:'환경 변수: 저장값과 실제 주입',text:'저장된 키 목록과 선택 어댑터에 실제로 적용되는 유효 환경 변수 목록을 따로 확인합니다. 비밀값은 다시 표시되지 않으며 교체 입력으로 다룹니다. 로컬 .env 가져오기는 키 미리보기 뒤 Merge 또는 Replace를 선택하므로, 적용 전에 어떤 키가 바뀌는지 확인하세요.'},
       {id:'timers',title:'예약 설정: 공통 정책',text:'이 탭은 모든 예약에 적용할 공통 지침과 최근 실행 결과 보존 한도를 다룹니다. 개별 예약의 이름·내용·일정·활성 상태는 왼쪽 예약 메뉴에서 관리합니다. 공통 정책을 저장했다면 다음 예약 실행에서 반영됐는지 결과로 확인합니다.'},
       {id:'plugins',title:'플러그인: 외부 채널',text:'Mattermost 카드는 채널 메시지 수신과 답장, 허용 범위, 대화 문맥을 다룹니다. Slack과 Discord가 미래 채널로 표시되면 사용 가능한 연동으로 해석하지 않습니다. 플러그인 카드가 보이는 것과 실제 메시지 왕복 성공은 별개입니다.'},
@@ -130,6 +134,7 @@ const guides = [
   {
     slug:'troubleshooting', category:'도움말', title:'진행이 멈추거나 결과가 차단될 때', description:'실행 상태·오류 메시지·세션 기록을 확인합니다.',
     sections:[
+      {id:'rra-durable-candidate',title:'RRA 요청이 접수 전에 500 또는 503으로 끝날 때',text:'2026.10.23 이미지 공급 후보는 이름 붙인 프로필의 RRA 복구 자료를 별도 payload 암호화 키 없이 저장하도록 바꿨습니다. 이전 이미지에서 해당 키가 빠져 새 요청이 일반 500으로 실패한 사례가 있었지만 모든 500의 원인을 같게 판단하지 않습니다. 새 후보에서 503 REMOTE_REQUEST_EXECUTION_UNAVAILABLE과 retryRecommended:false가 보이면 원래 요청 ID·멱등성 키·History에서 접수 여부와 외부 효과를 먼저 확인하고 운영 담당자에게 저장소 상태를 문의하세요. 새 Key로 자동 재시도하거나 기존 암호화 기록을 지우지 않습니다. 전체 검사·Registry·서버 배치·대상 제안은 확인됐지만 지정 워커 적용·Gateway 결과는 아직 미확인입니다.',link:'rra-integration',linkLabel:'RRA 접수 오류·세션 검사 보기'},
       {id:'status',title:'최종 상태 확인하기',text:'작업 진행중이 사라질 때까지 기다린 뒤 최종 답변과 Worker result 상태를 읽습니다. blocked 또는 failed이면 요청한 일이 완료되지 않았을 수 있습니다.',image:'04-blocked.png',alt:'실제 차단 결과 카드',caption:'첫 가상 회의 메모 요청에서 발생한 차단 응답입니다.'},
       {id:'details',title:'문의할 정보 모으기',text:'발생 시각, 작업한 세션, Task 식별자, 오류 메시지를 메모합니다. 비밀번호·토큰·비밀 환경 변수는 전달하지 않습니다.'},
       {id:'retry',title:'재실행 여부 판단하기',text:'외부 서비스에 글을 쓰거나 파일을 바꾼 요청은 실제 처리 여부를 확인한 뒤 다시 실행합니다. 이번 예제는 가상 텍스트 정리만 요청했고, 운영 담당자 확인 후 다시 실행해 정상 결과를 받았습니다.',image:'07-success.png',alt:'같은 예제를 재실행해 완료한 실제 답변',caption:'차단 화면과 정상 완료 화면을 구분해 확인합니다.'},
@@ -144,6 +149,12 @@ const guides = [
   {
     slug:'changes', category:'버전', title:'매뉴얼 갱신 이력', description:'이 사용설명서에 추가·수정한 내용과 화면 증거의 날짜를 확인합니다.',
     sections:[
+      {id:'current-development-20261120',title:'2026.11.20 · 최신 개발 기능과 후보 화면 안내',text:'Worker 개발 소스와 로컬 이미지 두 개를 대조해 Console Next 추적 항목 370개 중 로컬 검증 358개·부분 구현 1개·차단 11개, 업데이트 v4의 이후 소스 단계와 지정 워커 미적용을 기록했다. 설정·연결·RRA 대상·스킬 사용법을 화면별 절차와 테스트로 보강하고 실제 후보 UI의 로컬 합성 캡처 네 장을 붙였다. 390px 화면의 오른쪽 잘림과 운영 화면 미촬영을 별도 표시했다. 이전 로컬 후보 초안도 같은 공개 매뉴얼에 포함했지만, 게시가 해당 Worker 이미지의 적용·수용을 뜻하지는 않는다.',link:'current-development',linkLabel:'현재 개발 기능과 적용 상태 보기'},
+      {id:'console-c10-draft',title:'2026.10.28 · Console C10·Claude 인증 후보 로컬 초안',text:'10월 27일 Console Next 기본 후보 다음 불변 이미지의 로그인·배치, 새 Console 설정 네 상세, Claude 인증 팝업/주소 지연 복구를 버전 페이지와 설정 절차에 반영했다. 깨끗한 전체 검사 596건·linux/amd64 이미지·자산 1,724개를 확인했다. 동일 이미지 Registry 등록·서버 단독 공급·8개 제안까지 확인됐다. C10 지정 워커 적용·실제 OAuth/모델 결과와 새 운영 캡처는 확인 전이다. 작성 당시에는 미게시였으며 11월 20일 후보 안내로 공개했다.',link:'candidate-20261028-console-c10',linkLabel:'C10 후보 버전 페이지와 검사 보기'},
+      {id:'security-dependencies-draft',title:'2026.10.26 · 생산 의존성 보안 보완 이미지 로컬 초안',text:'직전 Claude Plan 장기 인증 이미지와 별도인 보안 보완 후보의 생산 패키지 버전, 양쪽 본문 파서 검증, 생산 npm 감사 0건과 개발 도구·OS·Portable 잔여 범위를 버전 페이지에 정리했다. 깨끗한 전체 검사 516건·linux/amd64 이미지 내부 검사·동일 이미지 Registry 등록·원격 식별과 01:12(KST) 서버 이미지 단독 배치, 01:13(KST) 관리 대상 8개의 정확한 제안을 확인했다. 당시 기존 컨테이너 13개는 유지됐고 Update·재시작은 없었다. 지정 워커 적용과 실제 업무 결과는 확인 전이며 작성 당시 미게시 초안이었고 11월 20일 공개했다. 화면 변경은 없어 새 캡처를 만들지 않았고 직전 장기 인증 화면 촬영은 남아 있다.',link:'candidate-20261026-security-dependencies',linkLabel:'생산 의존성 보안 후보 버전 페이지 보기'},
+      {id:'claude-plan-auth-draft',title:'2026.10.25 · Claude Plan 장기 인증 이미지 로컬 초안',text:'Claude Code Plan에 추가된 관리자용 장기 OAuth 인증의 브라우저 연결, 이미 발급한 토큰 저장, 상태·만료·제거, 파일 로그인과의 관계를 새 버전 페이지와 설정 안내에 반영했다. 깨끗한 전체 소스 검사 516건·linux/amd64 이미지 내부 검사를 확인했다. Registry·서버 배치·지정 워커 적용, 실제 토큰 발급·모델 호출·새 화면 촬영은 아직 없으며 작성 당시 미게시 로컬 초안이었고 11월 20일 공개했다. Console Next C1/C3 검증 경로는 기본 꺼짐으로 별도 구분했다.',link:'candidate-20261025-claude-plan-auth',linkLabel:'Claude Plan 장기 인증 후보 버전 페이지 보기'},
+      {id:'rra-keyless-draft',title:'2026.10.23 · RRA 복구·탐색 상태 로컬 초안',text:'앞선 실행 프로필 이미지와 별개인 새 공급 후보의 RRA 전용 키 없는 복구 저장, 사용 불가 시 503·재시도 비권장, 이전 암호화 기록 읽기 호환성을 버전 페이지와 RRA 연동·문제 해결에 반영했다. 같은 이미지에 포함된 P1 탐색 갱신 상태도 안내한다. 최종 전체 검사 492건·이미지 검증·Registry 등록·서버 이미지 배치·정확한 대상 제안을 확인했다. 운영 적용·Gateway 결과와 새 화면 촬영은 확인 전이며 작성 당시 미게시 로컬 초안이었고 11월 20일 공개했다.',link:'candidate-20261023-rra-keyless-recovery',linkLabel:'RRA 복구 후보 버전 페이지 보기'},
+      {id:'named-execution-profiles-draft',title:'2026.10.22 · 실행 프로필·예약 수동 실행 로컬 초안',text:'사용자 정의 실행 프로필, Console·RRA Key·Mattermost 채널·예약 상속과 예약 지금 실행을 별도 버전 페이지·사용법으로 작성했다. 이미지 내부 검사, Registry 등록·서버 이미지 단독 배치·관리 대상 8개의 제안과 지정 워커 적용 전 상태를 분리했다. 새 운영 캡처는 없으며 작성 당시 미게시 로컬 초안이었고 11월 20일 공개했다.',link:'candidate-20261022-named-execution-profiles',linkLabel:'후보 버전 페이지 보기'},
       {id:'rra-session-continuation',title:'2026.10.28 · RRA 세션 연속 대화 전용 URL',text:'외부 HTTP 호출의 sessionId와 개발 워커 협업의 sessionAnchorId를 구분하고, 두 요청의 예제·승인·결과 대조·전달 불명 복구를 독립 페이지로 정리했다. 소스 계약 기준이며 새 운영 호출과 화면 캡처는 미검증이다.',link:'rra-session-continuation',linkLabel:'RRA 세션 이어 대화하기 보기'},
       {id:'rra-integration',title:'2026.10.21 · RRA v1 연동 개발자 가이드',text:'고유 URL의 RRA 개발자 문서에 API 경로·스키마 버전·API Key·멱등성·상태/결과 조회·첨부·오류, 같은 sessionId로 후속 대화를 이어가는 Node.js 예제와 개발 워커의 승인된 Connector 흐름을 추가했다. 현재 구현의 POST 202 응답에는 sessionId가 없어 상태/결과에서 읽어야 한다는 점을 명시했다. 소스·계약 검사 기준이며 새 운영 API 호출과 Console 화면은 미검증이다.',link:'rra-integration',linkLabel:'RRA v1 연동 개발자 가이드 보기'},
       {id:'claude-file-supply',title:'2026.10.20 · 같은 Claude 파일 이미지의 서버 배치·제안 상태 갱신',text:'기존 Claude 파일 한도·오류 안내 버전 페이지에서 14:21(KST) 서버 이미지 단독 배치·정확 식별과 관리 워커 8개의 대상 제안을 확인 상태로 갱신했다. 당시 기존 13개 컨테이너·worker0 보호 설정이 보존되고 Update 제출·강제 실행·정책 변경은 없었다. 이후 실행 이미지와 운영 파일 결과·새 화면은 워커별로 새로 확인해야 한다.'},

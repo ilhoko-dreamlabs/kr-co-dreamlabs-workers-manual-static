@@ -3,18 +3,20 @@ const scope = '<div class="note"><strong>과거 확인 범위</strong>2026년 10
 
 export const latestGuides = [
   {
-    slug:'console-navigation', title:'새 탐색 메뉴와 모바일 화면', category:'세션',
-    description:'접히는 메뉴에서 세션·프로젝트·외부 요청을 찾고 모바일에서도 같은 목적지로 이동합니다.',
-    verifiedAt:'2026.10.09', evidenceLabel:'실행 이미지·소스 확인 / 화면 미촬영', noScreenshot:true,
+    slug:'console-navigation', title:'기존 Console 탐색 메뉴와 모바일 화면', category:'세션',
+    description:'기존 Console의 접히는 메뉴에서 세션·프로젝트·외부 요청을 찾고 모바일에서도 같은 목적지로 이동합니다.',
+    verifiedAt:'2026.10.23', evidenceLabel:'10월 9일 과거 운영 확인 + 10월 23일 P1 로컬 후보 / 화면 미촬영', noScreenshot:true,
     quick:{where:'콘솔 왼쪽 메뉴 · 모바일에서는 메뉴 버튼',do:'최근 세션·프로젝트·외부 요청 그룹을 펼쳐 원하는 항목 선택',check:'선택 항목 강조와 본문 이동, 모바일 서랍 닫힘 확인'},
-    toc:[['scope','적용 범위'],['groups','메뉴 구조'],['activity','세션별 활동 표시'],['navigate','목적지 열기'],['mobile','모바일에서 열기'],['refresh','새로고침 후 확인']],
+    toc:[['scope','적용 범위'],['next-default','Console Next 기본 후보'],['groups','메뉴 구조'],['activity','세션별 활동 표시'],['navigate','목적지 열기'],['mobile','모바일에서 열기'],['refresh','새로고침 후 확인'],['p1-refresh-candidate','P1 새로고침 상태 후보']],
     body:()=>`
-      <section id="scope"><h2>적용 범위</h2><p>최신 콘솔은 최근 세션, Mattermost, Remote Request API, 프로젝트, 예약, 탐색 및 도구를 각각 독립 메뉴로 둡니다. 10월 1일의 세션 중심 캡처는 이전 화면입니다.</p>${scope}</section>
+      <section id="scope"><h2>적용 범위</h2><p>이 페이지는 10월 9일에 확인한 기존 Console의 최근 세션, Mattermost, Remote Request API, 프로젝트, 예약, 탐색 및 도구 메뉴를 설명합니다. 10월 1일의 세션 중심 캡처는 이전 화면입니다.</p>${scope}</section>
+      <section id="next-default"><h2>Console Next 기본 화면 후보</h2><p>10월 27일 별도 로컬 이미지 후보는 <code>/console</code>에서 새 Console Next를 기본으로 열고, 이 페이지의 기존 화면은 <code>/console?ui=legacy</code>로 명시적으로 엽니다. 후보의 실제 워커 적용과 캡처는 아직 확인 전입니다. 새 화면의 Chat·RRA·프로젝트·Workspace/Wiki 사용법은 <a href="../console-next/">Console Next 탐색·대화·문서 보기</a>를 참고하세요. 예약·설정·Mattermost 정책·Skills·Tools·업데이트는 기존 Console에서 계속 사용합니다.</p></section>
       <section id="groups"><h2>메뉴 구조 읽기</h2><p>그룹 이름과 폴더 아이콘으로 접고 펼칩니다. <strong>최근 세션</strong>에는 프로젝트에 속하지 않은 콘솔 대화가, <strong>프로젝트</strong>에는 해당 프로젝트의 대화가 표시됩니다. Mattermost 채널/DM과 Remote Request API의 API Key별 세션은 각각의 그룹에서 찾습니다. 같은 세션을 여러 그룹에 중복 표시하지 않는 것이 기준입니다.</p></section>
       <section id="activity"><h2>세션별 활동 표시</h2><p>2026.10.15 통합 이미지는 10월 16일 worker0 실행·건강까지 확인됐습니다. 최근 세션·프로젝트·Mattermost·RRA 목록의 실행 중인 해당 세션에만 활동 표시가 붙도록 보완됐습니다. 선택한 세션의 보내기 직후 표시는 서버의 정식 상태를 다시 읽을 때까지 잠시 유지될 수 있습니다. 대기·완료·다른 세션의 작업이 계속 실행 중처럼 표시되면 기대 동작과 다릅니다. RRA는 활성 요청 ID를 기준으로 확인하고, 움직임 줄이기 환경에서는 표시가 회전하지 않아야 합니다. 실제 기능 결과와 운영 UI는 아직 확인하지 않았습니다.</p></section>
       <section id="navigate"><h2>목적지 열기</h2><p>그룹을 펼치는 조작은 목록만 바꿉니다. 세션·대시보드 관점·예약·탐색기 항목을 선택해야 본문이 이동합니다. 현재 선택한 항목은 강조 표시되고 해당 그룹이 펼쳐집니다. 프로젝트 행의 펼침과 뒤쪽 설정 버튼은 서로 다른 동작입니다.</p></section>
       <section id="mobile"><h2>모바일에서 열기</h2><p>좁은 화면에서는 메뉴 버튼으로 서랍을 열고, 항목을 고른 뒤 닫기 버튼으로 본문에 돌아옵니다. 화면을 가로로 밀어야만 버튼을 찾을 수 있거나 닫기 버튼이 가려진다면 기대 동작과 다릅니다.</p></section>
-      <section id="refresh"><h2>새로고침 후 확인하기</h2><p>메뉴의 펼침 상태는 브라우저의 화면 선호값으로 기억될 수 있지만 세션 내용과 작업 상태는 서버에서 다시 읽습니다. Remote Request 이외의 상태 변경으로 Remote Request API 목록을 펼쳐 둔 상태가 반복해서 닫히지 않아야 합니다.</p></section>`
+      <section id="refresh"><h2>새로고침 후 확인하기</h2><p>메뉴의 펼침 상태는 브라우저의 화면 선호값으로 기억될 수 있지만 세션 내용과 작업 상태는 서버에서 다시 읽습니다. Remote Request 이외의 상태 변경으로 Remote Request API 목록을 펼쳐 둔 상태가 반복해서 닫히지 않아야 합니다.</p></section>
+      <section id="p1-refresh-candidate"><h2>2026.10.23 이미지에 포함된 P1 탐색 상태 보완</h2><div class="note"><strong>공급된 후보 · 운영 화면 미촬영</strong>이 내용은 <a href="../candidate-20261023-rra-keyless-recovery/">RRA 복구 이미지 후보</a>에 포함된 소스와 로컬 브라우저 시험 기준입니다. 대상 Worker에 실제 적용된 화면은 아직 확인하지 않았습니다.</div><p>최근 세션·Mattermost·RRA·프로젝트·예약 목록에 새 데이터가 들어와도 열린 그룹과 행 메뉴, 입력 중인 내용, 키보드 초점과 스크롤 위치를 유지해야 합니다. 프로젝트 제목을 누르면 프로젝트가 열리고 별도의 펼침 버튼은 자식 세션 목록만 접고 펼칩니다. 메뉴에서 방향키·Home/End·Escape를 사용하고, 로딩·빈 목록·오류를 서로 구분해 확인합니다.</p><p>승인된 시험 워커 적용 뒤 데스크톱과 좁은 화면에서 그룹을 열고 한 항목에 초점을 둔 채 목록 갱신을 기다립니다. 행을 새로 만들며 메뉴가 닫히거나 입력 내용·초점·스크롤이 사라진다면 기대 동작과 다릅니다. 새 화면 캡처와 실제 결과는 별도 기록이 필요합니다.</p></section>`
   },
   {
     slug:'remote-collaboration', title:'다른 워커에 요청하고 결과 이어받기', category:'요청과 결과',

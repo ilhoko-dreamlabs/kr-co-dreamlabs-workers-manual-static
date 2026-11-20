@@ -1,0 +1,38 @@
+// Public candidate prose. Exact OCI identities, internal endpoints and token material stay in the private receipt.
+export const claudePlanAuthCandidate = {
+  slug: 'candidate-20261025-claude-plan-auth',
+  label: '2026.10.25 Claude Code Plan 장기 인증 이미지 후보',
+  status: {
+    build: '완료 · linux/amd64 불변 이미지 빌드·식별',
+    validation: '완료 · 깨끗한 전체 소스 검사 516건 통과·이미지 내부 검사',
+    registry: '미수행 · Registry 등록 전',
+    prestage: '미수행 · 서버 이미지 배치 전',
+    offer: '미수행 · 지정 워커 업데이트 제안 전',
+    apply: '미수행 · 지정 워커 적용·실제 모델 요청 전',
+  },
+};
+
+export const claudePlanAuthCandidateGuide = {
+  slug: claudePlanAuthCandidate.slug,
+  title: claudePlanAuthCandidate.label,
+  category: '버전',
+  description: 'Claude Code Plan 장기 OAuth 인증의 화면 조작, 적용 범위, 검증 결과와 배포·화면 미확인 상태를 구분합니다.',
+  verifiedAt: '2026.10.25',
+  evidenceLabel: '깨끗한 소스·불변 이미지 검사 / Registry·운영 적용·실제 화면 전',
+  history: true,
+  candidate: true,
+  noScreenshot: true,
+  toc: [['state','이미지와 적용 단계'],['change','이전 이미지에서 달라진 점'],['screen','설정 화면과 권한'],['browser','브라우저로 연결'],['import','이미 발급한 토큰 연결'],['status','상태·만료·제거'],['boundary','사용 범위와 보호'],['console-next','같은 이미지의 Console Next 범위'],['checks','검증 결과와 남은 일'],['acceptance','적용 뒤 직접 검사'],['captures','필요한 화면 캡처']],
+  body: () => `<div class="note capture-warning"><strong>로컬 이미지 후보 · 운영 미적용</strong>2026년 10월 25일 소스와 linux/amd64 불변 이미지를 검사한 문서 초안입니다. Registry 등록, 서버 배치, 지정 워커 제안·적용, 실제 Claude 토큰 발급·모델 호출은 수행하지 않았습니다. 날짜는 공식 제품 버전 번호가 아닙니다. 이 공개 문서는 로컬 이미지 후보를 설명하며 지정 워커 적용 증거는 아닙니다.</div>
+    <section id="state"><h2>이미지와 실제 적용 단계</h2><div class="release-stage-grid"><div><strong>이미지 빌드</strong><span>${claudePlanAuthCandidate.status.build}</span></div><div><strong>전체·이미지 검사</strong><span>${claudePlanAuthCandidate.status.validation}</span></div><div><strong>Registry 등록</strong><span>${claudePlanAuthCandidate.status.registry}</span></div><div><strong>서버 사전 배치</strong><span>${claudePlanAuthCandidate.status.prestage}</span></div><div><strong>업데이트 제안</strong><span>${claudePlanAuthCandidate.status.offer}</span></div><div><strong>워커 실제 적용</strong><span>${claudePlanAuthCandidate.status.apply}</span></div></div><p>비교 기준은 앞서 기록한 <a href="../candidate-20261023-rra-keyless-recovery/">RRA 복구·탐색 상태 이미지</a>입니다. 그 후보도 공급·제안 확인과 실제 적용을 구분해야 합니다. 이번 이미지를 빌드했다고 현재 claude-worker나 다른 워커에서 새 설정을 사용할 수 있는 것은 아닙니다.</p></section>
+    <section id="change"><h2>이전 이미지에서 달라진 점</h2><p>기존 Claude Code Plan의 <strong>파일 로그인</strong>은 유지하면서 별도의 <strong>장기 인증</strong> 패널을 추가했습니다. 관리자는 Claude의 브라우저 인증으로 setup-token을 발급받아 Worker가 관리하도록 하거나, 신뢰할 수 있는 터미널에서 이미 발급한 장기 OAuth 토큰을 직접 연결할 수 있습니다. 종량제 Anthropic API 키를 이 입력란에 넣는 방식은 지원하지 않습니다.</p><p>새로 저장한 관리 토큰은 진행 중인 작업을 바꾸지 않고 <strong>다음 Claude Code Plan 실행</strong>부터 사용합니다. 저장 뒤 Worker 재시작은 필요하지 않습니다. 관리 토큰을 제거해도 기존 파일 로그인과 외부에서 관리하는 환경 토큰은 삭제되지 않습니다.</p></section>
+    <section id="screen"><h2>설정 화면과 권한</h2><ol><li>관리자 계정으로 Console에 로그인하고 <strong>설정 → 어댑터 → Claude Code Plan → 설정</strong>을 엽니다.</li><li>기존 <strong>Plan Login</strong> 영역 아래의 <strong>장기 인증</strong> 패널을 찾습니다. 별도 <strong>Anthropic API</strong> 어댑터의 API 키 입력란과 혼동하지 마세요.</li><li><strong>현재 소스, 만료, 마지막 변경, 확인 범위</strong>를 읽고, 필요한 경우 아래의 브라우저 연결 또는 이미 발급한 토큰 연결을 선택합니다.</li></ol><p>장기 인증 조회·변경은 Google 관리자에게 제한됩니다. 일반 사용자는 관리자 전용 상태를 보며 발급·저장·제거 조작을 할 수 없습니다. 설정 화면의 <strong>구성됨</strong> 표시는 실제 제공자 모델 요청 성공과 다릅니다.</p></section>
+    <section id="browser"><h2>브라우저 인증으로 연결하기</h2><ol><li><strong>브라우저 인증으로 연결 → 연결 시작</strong>을 선택합니다. 화면에 허용된 Claude 인증 페이지가 제공되면 <strong>인증 페이지 열기</strong>로 엽니다.</li><li>관리자가 자신의 브라우저에서 승인 절차를 완료합니다. Claude가 별도 코드를 요구할 때만 <strong>인증 코드</strong>에 입력하고 <strong>코드 제출</strong>을 누릅니다. 코드와 발급 토큰을 캡처하거나 문서에 붙이지 않습니다.</li><li><strong>연결 상태 새로고침</strong>으로 완료 상태를 다시 읽습니다. 코드 제출만으로 저장 성공을 판정하지 않습니다. 중단하려면 <strong>연결 취소</strong>를 사용하며 기존 관리 토큰은 유지됩니다.</li><li>완료 후 <strong>현재 소스</strong>가 Worker 관리 토큰인지 확인하고, 필요한 경우 <strong>상태 확인</strong>을 별도로 실행합니다. 발급 토큰 원문은 화면에 다시 표시되지 않습니다.</li></ol><p>이 연결 흐름은 실제 계정으로 아직 검증하지 않았습니다. 브라우저 인증·토큰 발급이 실패하거나 시간이 초과되면 기존 자격을 임의로 삭제하지 말고 상태를 재조회하세요.</p></section>
+    <section id="import"><h2>이미 발급한 토큰 연결하기</h2><ol><li>신뢰할 수 있는 터미널에서 발급한 <strong>Claude 장기 OAuth 토큰</strong>을 준비합니다. 이 값은 종량제 API 키와 다릅니다.</li><li><strong>이미 발급한 토큰 연결 → 장기 OAuth 토큰</strong>에 값을 입력합니다. 실제 만료일을 알고 있을 때만 <strong>만료일 · 선택 사항</strong>을 채웁니다.</li><li><strong>토큰 저장</strong>을 누른 뒤 원문이 다시 보이지 않는지, <strong>현재 소스</strong>와 <strong>마지막 변경</strong>이 갱신됐는지 확인합니다. 기존 관리 토큰을 바꾸는 경우에는 새 값의 다음 실행 결과를 별도로 검사합니다.</li></ol><p>만료일은 관리자가 입력한 값이며 제공자가 검증한 값이 아닙니다. 모르면 비워 두세요. 저장한 날부터 1년을 더해 남은 수명으로 표시하지 않습니다. 만료일이 없는 토큰은 <strong>확인할 수 없음</strong>으로 표시합니다.</p></section>
+    <section id="status"><h2>상태 확인, 만료와 제거</h2><p><strong>상태 확인</strong>은 Claude CLI의 인증 상태만 읽습니다. 실제 유료 모델 요청이나 제공자 수용 시험을 실행하지 않으며 화면의 확인 범위도 <strong>CLI 상태만 확인 · 실제 모델 요청 미검증</strong>으로 남습니다. 만료·손상·거부된 선택 토큰이 있을 때 파일 로그인으로 조용히 전환해 성공으로 꾸미지 않습니다. 자동 갱신·주기적 재로그인도 이 변경에 포함되지 않습니다.</p><p><strong>관리 토큰 제거</strong>는 Worker가 저장한 관리 토큰에만 적용됩니다. <strong>외부 관리 환경 토큰</strong>은 이 버튼으로 제거할 수 없습니다. 제거 뒤 현재 소스를 다시 읽고 기존 파일 로그인이나 외부 토큰이 남아 있는지 확인합니다. 실행 중인 작업은 새 인증 설정으로 바뀌지 않으므로 다음 실행의 결과를 따로 검사합니다.</p></section>
+    <section id="boundary"><h2>사용 범위와 보호</h2><p>관리 토큰은 선택된 <strong>Claude Code Plan</strong>의 모델 요청과 로컬 MCP에만 사용하며, 다른 어댑터로 넘기지 않습니다. <strong>Remote Control</strong>과 <strong>claude.ai 커넥터</strong>에는 사용할 수 없습니다. 기존 파일 로그인은 유지되고 외부 환경 토큰이 있다면 관리 토큰·환경 토큰·파일 로그인 순서로 새 실행의 인증 소스를 선택합니다. 명시적으로 선택된 토큰이 만료되거나 거부됐을 때 다른 소스로 자동 우회하지 않습니다. 관리 구독 인증의 <code>--bare</code> 실행도 지원하지 않습니다.</p><p>Worker가 저장하는 관리 토큰은 보존되는 비밀 저장소에 암호화해 기록합니다. 운영자는 비밀 저장소 전체의 접근·백업·복구를 관리해야 합니다. 호스트 관리자에게 저장 키 접근 권한이 있으면 암호화만으로 그 관리자에게서 값을 숨길 수 없습니다. 토큰 원문, 인증 코드, 내부 경로·주소는 공개 매뉴얼·화면 캡처·Task 결과에 남기지 않습니다.</p></section>
+    <section id="console-next"><h2>같은 이미지의 Console Next 범위</h2><p>이 이미지에는 별도 <strong>Console Next C1/C3 검증 기반</strong>도 포함됩니다. 새 검증 경로는 기본적으로 꺼져 있고, 허용된 격리 검사에서 읽기 전용으로 살펴보는 대상입니다. 기존 기본 Console을 대체하거나 운영 사용자에게 자동 공개하는 변경으로 판정하지 않습니다. 따라서 이번 이미지의 사용자 설정 변화는 위 Claude Code Plan 장기 인증 패널이며, Console Next의 실제 활성화·화면·업무 수용은 별도 단계입니다.</p></section>
+    <section id="checks"><h2>검증 결과와 남은 일</h2><p>정확한 깨끗한 소스의 전체 검사는 <strong>516건 통과·실패 0·차단 0</strong>입니다. 동일 소스의 linux/amd64 이미지에서 파일 출처 1,695개, 비어 있는 자격 자료, 고정된 Codex·Claude·Kimi CLI 버전, 패키지 인증 검사 11건, 네트워크 차단 임시 기동의 건강 응답과 Wiki 준비 상태를 확인했습니다. 인증하지 않은 새 관리 경로는 접근이 거부됐습니다. 이 검사는 실제 Claude 계정의 토큰 발급이나 모델 응답을 뜻하지 않습니다.</p><p><strong>Registry 등록, 서버 배치, 워커 제안·적용, 보존 자료와 실제 새 인증 화면, 모델 호출은 미확인</strong>입니다. 의존성 감사에는 중간 심각도 2건과 높은 심각도 2건이 남아 있어 이미지 기능 검사 통과와 보안 권고 해결을 구분합니다.</p></section>
+    <section id="acceptance"><h2>지정 워커 적용 뒤 직접 확인할 순서</h2><ol><li>승인된 시험 워커의 정확한 실행 이미지·건강·기존 파일 로그인과 보존된 비밀 저장소를 비공개 운영 기록에서 대조합니다. 후보 빌드만으로 적용을 판정하지 않습니다.</li><li>관리자와 일반 사용자로 설정 → 어댑터 → Claude Code Plan → 장기 인증을 열어 역할별 표시와 조작 권한을 비교합니다.</li><li>시험 계정으로 브라우저 연결 한 번을 수행하고 코드가 필요한 경우에만 제출합니다. 새로고침 후 관리 토큰 소스, 만료 표기, 마지막 변경 및 원문 미표시를 확인합니다. 별도 격리 워커에서는 이미 발급한 토큰 저장과 제거도 확인합니다.</li><li>상태 확인에서 CLI 상태와 실제 모델 요청 미검증 안내가 함께 보이는지 확인합니다. 새 Claude 실행의 승인된 무해한 요청 한 건으로 최종 Task 상태와 답변을 별도로 확인하고, 다른 어댑터에는 토큰이 전달되지 않는지 격리 검증합니다.</li><li>관리 토큰 제거 후 파일 로그인·외부 토큰 보존과 다음 실행의 인증 소스를 확인합니다. 재시작 후 보존, 만료·거부·손상 시 실패, 취소·감사 경고는 비밀값 없는 격리 기록으로 따로 판정합니다.</li></ol><p>시험에서는 실제 고객 자료나 계정 비밀값을 쓰지 않습니다. 모델 요청과 계정 승인은 명시적으로 허용된 시험 환경에서만 실행합니다.</p></section>
+    <section id="captures"><h2>필요한 화면 캡처</h2><p><strong>화면 미촬영 · 이 이미지의 실제 Console 화면은 아직 촬영하지 않았습니다.</strong>적용 뒤 데스크톱·좁은 화면에서 ① Claude Code Plan 설정 진입과 기존 Plan Login/새 장기 인증의 구분, ② 연결 시작·승인 대기·완료 또는 안전한 오류, ③ 현재 소스/알 수 없는 만료/CLI 확인 범위, ④ 관리자·일반 사용자 권한 차이를 토큰·코드·계정 식별 없이 촬영해야 합니다. 이전 버전의 인증 화면이나 합성 화면을 이번 이미지의 운영 캡처로 재사용하지 않습니다.</p></section>`,
+};
